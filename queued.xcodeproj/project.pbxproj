@@ -14,6 +14,10 @@
 		9FD356D825FE3A2D00C66E41 /* SpotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 9FD356D725FE3A2D00C66E41 /* SpotifyAPI */; };
 		9FD356DD25FE3AEA00C66E41 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356DC25FE3AEA00C66E41 /* ViewModel.swift */; };
 		9FD356E025FE3B3500C66E41 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356DF25FE3B3500C66E41 /* HomeView.swift */; };
+		9FD356E425FE3EDE00C66E41 /* SongSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356E325FE3EDE00C66E41 /* SongSearchView.swift */; };
+		9FD356E725FE3F0D00C66E41 /* SongSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356E625FE3F0D00C66E41 /* SongSearchViewModel.swift */; };
+		9FD356EA25FE40C300C66E41 /* SongListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356E925FE40C300C66E41 /* SongListCell.swift */; };
+		9FD356ED25FE412B00C66E41 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356EC25FE412B00C66E41 /* ImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		9FD356CF25FE346200C66E41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD356DC25FE3AEA00C66E41 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		9FD356DF25FE3B3500C66E41 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		9FD356E325FE3EDE00C66E41 /* SongSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSearchView.swift; sourceTree = "<group>"; };
+		9FD356E625FE3F0D00C66E41 /* SongSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSearchViewModel.swift; sourceTree = "<group>"; };
+		9FD356E925FE40C300C66E41 /* SongListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListCell.swift; sourceTree = "<group>"; };
+		9FD356EC25FE412B00C66E41 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +69,10 @@
 				9FD356C625FE345D00C66E41 /* queuedApp.swift */,
 				9FD356C825FE345D00C66E41 /* ContentView.swift */,
 				9FD356DF25FE3B3500C66E41 /* HomeView.swift */,
+				9FD356E325FE3EDE00C66E41 /* SongSearchView.swift */,
+				9FD356E925FE40C300C66E41 /* SongListCell.swift */,
+				9FD356EC25FE412B00C66E41 /* ImageView.swift */,
+				9FD356E625FE3F0D00C66E41 /* SongSearchViewModel.swift */,
 				9FD356DC25FE3AEA00C66E41 /* ViewModel.swift */,
 				9FD356CA25FE346200C66E41 /* Assets.xcassets */,
 				9FD356CF25FE346200C66E41 /* Info.plist */,
@@ -152,10 +164,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FD356ED25FE412B00C66E41 /* ImageView.swift in Sources */,
 				9FD356C925FE345D00C66E41 /* ContentView.swift in Sources */,
+				9FD356E425FE3EDE00C66E41 /* SongSearchView.swift in Sources */,
 				9FD356E025FE3B3500C66E41 /* HomeView.swift in Sources */,
 				9FD356DD25FE3AEA00C66E41 /* ViewModel.swift in Sources */,
 				9FD356C725FE345D00C66E41 /* queuedApp.swift in Sources */,
+				9FD356EA25FE40C300C66E41 /* SongListCell.swift in Sources */,
+				9FD356E725FE3F0D00C66E41 /* SongSearchViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

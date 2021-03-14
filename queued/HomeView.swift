@@ -11,10 +11,12 @@ struct HomeView: View {
     @StateObject var viewModel = ViewModel.shared
     
     var body: some View {
+        NavigationView {
         if viewModel.authenticated {
             SongSearchView()
         } else {
             Button(action: {
+                
                 viewModel.authorize()
             }, label: {
                 ZStack {
@@ -22,6 +24,7 @@ struct HomeView: View {
                     Text("Log In to Spotify").foregroundColor(.white).font(.title2).padding()
                 }
             })
+        }
         }
     }
 }

@@ -17,7 +17,9 @@ class ViewModel: ObservableObject {
     @Published var authenticated = false
     
     func initialize() {
-        SpotifyAPI.manager.initialize(clientId: "1e6ef0ef377c443e8ebf714b5b77cad7", redirectUris: ["queued://oauth-callback/"] , scopes: [.playlistModifyPrivate, .playlistModifyPublic])
+        
+        SpotifyAPI.manager.initialize(clientId: "1e6ef0ef377c443e8ebf714b5b77cad7", redirectUris: ["queued://oauth-callback/"] , scopes: [.userModifyPlaybackState], useKeychain: false)
+        SpotifyAPI.manager.forgetTokens()
     }
     func authorize() {
         SpotifyAPI.manager.authorize { success in
