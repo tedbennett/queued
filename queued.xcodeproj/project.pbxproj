@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,9 @@
 		9FD356C925FE345D00C66E41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356C825FE345D00C66E41 /* ContentView.swift */; };
 		9FD356CB25FE346200C66E41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD356CA25FE346200C66E41 /* Assets.xcassets */; };
 		9FD356CE25FE346200C66E41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD356CD25FE346200C66E41 /* Preview Assets.xcassets */; };
+		9FD356D825FE3A2D00C66E41 /* SpotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 9FD356D725FE3A2D00C66E41 /* SpotifyAPI */; };
+		9FD356DD25FE3AEA00C66E41 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356DC25FE3AEA00C66E41 /* ViewModel.swift */; };
+		9FD356E025FE3B3500C66E41 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356DF25FE3B3500C66E41 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +23,8 @@
 		9FD356CA25FE346200C66E41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FD356CD25FE346200C66E41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9FD356CF25FE346200C66E41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FD356DC25FE3AEA00C66E41 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		9FD356DF25FE3B3500C66E41 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FD356D825FE3A2D00C66E41 /* SpotifyAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +60,8 @@
 			children = (
 				9FD356C625FE345D00C66E41 /* queuedApp.swift */,
 				9FD356C825FE345D00C66E41 /* ContentView.swift */,
+				9FD356DF25FE3B3500C66E41 /* HomeView.swift */,
+				9FD356DC25FE3AEA00C66E41 /* ViewModel.swift */,
 				9FD356CA25FE346200C66E41 /* Assets.xcassets */,
 				9FD356CF25FE346200C66E41 /* Info.plist */,
 				9FD356CC25FE346200C66E41 /* Preview Content */,
@@ -85,6 +93,9 @@
 			dependencies = (
 			);
 			name = queued;
+			packageProductDependencies = (
+				9FD356D725FE3A2D00C66E41 /* SpotifyAPI */,
+			);
 			productName = queued;
 			productReference = 9FD356C325FE345D00C66E41 /* queued.app */;
 			productType = "com.apple.product-type.application";
@@ -112,6 +123,9 @@
 				Base,
 			);
 			mainGroup = 9FD356BA25FE345D00C66E41;
+			packageReferences = (
+				9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */,
+			);
 			productRefGroup = 9FD356C425FE345D00C66E41 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,6 +153,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FD356C925FE345D00C66E41 /* ContentView.swift in Sources */,
+				9FD356E025FE3B3500C66E41 /* HomeView.swift in Sources */,
+				9FD356DD25FE3AEA00C66E41 /* ViewModel.swift in Sources */,
 				9FD356C725FE345D00C66E41 /* queuedApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +344,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tedbennett/SpotifyForSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9FD356D725FE3A2D00C66E41 /* SpotifyAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */;
+			productName = SpotifyAPI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9FD356BB25FE345D00C66E41 /* Project object */;
 }
