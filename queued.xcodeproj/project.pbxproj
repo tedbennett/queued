@@ -18,6 +18,8 @@
 		9FD356E725FE3F0D00C66E41 /* SongSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356E625FE3F0D00C66E41 /* SongSearchViewModel.swift */; };
 		9FD356EA25FE40C300C66E41 /* SongListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356E925FE40C300C66E41 /* SongListCell.swift */; };
 		9FD356ED25FE412B00C66E41 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356EC25FE412B00C66E41 /* ImageView.swift */; };
+		9FD356F025FE4C6300C66E41 /* View+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356EF25FE4C6300C66E41 /* View+Additions.swift */; };
+		9FD356F425FE4D6300C66E41 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 9FD356F325FE4D6300C66E41 /* AlertToast */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,7 @@
 		9FD356E625FE3F0D00C66E41 /* SongSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSearchViewModel.swift; sourceTree = "<group>"; };
 		9FD356E925FE40C300C66E41 /* SongListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListCell.swift; sourceTree = "<group>"; };
 		9FD356EC25FE412B00C66E41 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		9FD356EF25FE4C6300C66E41 /* View+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FD356D825FE3A2D00C66E41 /* SpotifyAPI in Frameworks */,
+				9FD356F425FE4D6300C66E41 /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +74,7 @@
 				9FD356C825FE345D00C66E41 /* ContentView.swift */,
 				9FD356DF25FE3B3500C66E41 /* HomeView.swift */,
 				9FD356E325FE3EDE00C66E41 /* SongSearchView.swift */,
+				9FD356EF25FE4C6300C66E41 /* View+Additions.swift */,
 				9FD356E925FE40C300C66E41 /* SongListCell.swift */,
 				9FD356EC25FE412B00C66E41 /* ImageView.swift */,
 				9FD356E625FE3F0D00C66E41 /* SongSearchViewModel.swift */,
@@ -107,6 +112,7 @@
 			name = queued;
 			packageProductDependencies = (
 				9FD356D725FE3A2D00C66E41 /* SpotifyAPI */,
+				9FD356F325FE4D6300C66E41 /* AlertToast */,
 			);
 			productName = queued;
 			productReference = 9FD356C325FE345D00C66E41 /* queued.app */;
@@ -137,6 +143,7 @@
 			mainGroup = 9FD356BA25FE345D00C66E41;
 			packageReferences = (
 				9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */,
+				9FD356F225FE4D6300C66E41 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 9FD356C425FE345D00C66E41 /* Products */;
 			projectDirPath = "";
@@ -169,6 +176,7 @@
 				9FD356E425FE3EDE00C66E41 /* SongSearchView.swift in Sources */,
 				9FD356E025FE3B3500C66E41 /* HomeView.swift in Sources */,
 				9FD356DD25FE3AEA00C66E41 /* ViewModel.swift in Sources */,
+				9FD356F025FE4C6300C66E41 /* View+Additions.swift in Sources */,
 				9FD356C725FE345D00C66E41 /* queuedApp.swift in Sources */,
 				9FD356EA25FE40C300C66E41 /* SongListCell.swift in Sources */,
 				9FD356E725FE3F0D00C66E41 /* SongSearchViewModel.swift in Sources */,
@@ -370,6 +378,14 @@
 				kind = branch;
 			};
 		};
+		9FD356F225FE4D6300C66E41 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -377,6 +393,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */;
 			productName = SpotifyAPI;
+		};
+		9FD356F325FE4D6300C66E41 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FD356F225FE4D6300C66E41 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -6,19 +6,31 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct SongSearchView: View {
     @ObservedObject var viewModel = SongSearchViewModel()
+    @State var isEditing = false
     var body: some View {
         VStack {
             HStack {
-                TextField("Search for tracks", text: $viewModel.searchText).textFieldStyle(RoundedBorderTextFieldStyle())
-                Button() {
-                    viewModel.getSongsFromSearch()
-                } label: {
-                    Text("Search")
+                TextField("Search for tracks", text: $viewModel.searchText)
+                    .padding(7)
+                    //.padding(.horizontal, 25)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                    .padding(.horizontal, 10)
+                if viewModel.searchText != "" {
+                    Button() {
+                        viewModel.getSongsFromSearch()
+                        hideKeyboard()
+                    } label: {
+                        Text("Search")
+                    }.padding(.trailing, 10)
+                    .transition(.move(edge: .trailing))
+                    .animation(.default)
                 }
-            }
+            }.padding()
             List {
                 ForEach(viewModel.songs) { song in
                     Button() {
@@ -27,8 +39,14 @@ struct SongSearchView: View {
                         SongListCell(name: song.name, imageUrl: song.album.images.first?.url)
                     }
                 }
-            }
-        }.padding()
+            }.listStyle(PlainListStyle())
+        }
+        .toast(isPresenting: $viewModel.success, duration: 1, tapToDismiss: false, alert: {
+            AlertToast(type: .complete(.white), title: "Added To Queue", subTitle: nil)
+        }, completion: {_ in})
+        .toast(isPresenting: $viewModel.failure, duration: 1, tapToDismiss: false, alert: {
+            AlertToast(type: .systemImage("warning", .white), title: "Failed To Add To Queue", subTitle: nil)
+        }, completion: {_ in})
         .navigationTitle("Search")
     }
 }
