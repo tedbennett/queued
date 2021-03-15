@@ -1,5 +1,5 @@
 //
-//  SongSearchViewModel.swift
+//  SpotifySearchViewModel.swift
 //  queued
 //
 //  Created by Ted Bennett on 14/03/2021.
@@ -8,8 +8,18 @@
 import SwiftUI
 import SpotifyAPI
 
-class SongSearchViewModel: ObservableObject {
-    @Published var songs = [SpotifyAPI.Track]()
+protocol ServiceViewModel: ObservableObject {
+    var songs: [Song] { get set }
+    var searchText: String { get set }
+    var success: Bool { get set }
+    var failure: Bool { get set }
+    
+    func getSongsFromSearch()
+    func addSongToQueue(_ song: Song)
+}
+
+class SpotifySearchViewModel: ServiceViewModel {
+    @Published var songs = [Song]()
     @Published var searchText = ""
     @Published var success = false
     @Published var failure = false
@@ -18,12 +28,12 @@ class SongSearchViewModel: ObservableObject {
         let encodedSearch = searchText.replacingOccurrences(of: " ", with: "+")
         SpotifyAPI.manager.search(for: "\(encodedSearch)") { (tracks: [SpotifyAPI.Track], url, error) in
             DispatchQueue.main.async {
-                self.songs = tracks
+                self.songs = tracks.map { Song($0) }
             }
         }
     }
     
-    func addSongToQueue(_ song: SpotifyAPI.Track) {
+    func addSongToQueue(_ song: Song) {
         let uri = song.uri
         SpotifyAPI.manager.addTrackToQueue(uri: uri) { success, error in
             
@@ -34,6 +44,8 @@ class SongSearchViewModel: ObservableObject {
                     self.failure = true
                 }
             }
+            
+            
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
         }

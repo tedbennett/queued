@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct SongListCell: View {
-    var name: String?
-    var imageUrl: String?
+    var song: Song
     
     var body: some View {
         HStack {
-            ImageView(urlString: imageUrl).frame(width:80, height: 80).cornerRadius(8)
-            Text(name ?? "Unknown Playlist")
+            ImageView(urlString: song.imageUrl).frame(width:80, height: 80).cornerRadius(8)
+            Text(song.name)
         }
     }
 }
 
 struct SongListCell_Previews: PreviewProvider {
     static var previews: some View {
-        SongListCell()
+        SongListCell(song: Song.example)
     }
 }

@@ -8,8 +8,8 @@
 import SwiftUI
 import AlertToast
 
-struct SongSearchView: View {
-    @ObservedObject var viewModel = SongSearchViewModel()
+struct SongSearchView<ViewModel: ServiceViewModel>: View {
+    @ObservedObject var viewModel: ViewModel
     @State var isEditing = false
     var body: some View {
         VStack {
@@ -36,15 +36,15 @@ struct SongSearchView: View {
                     Button() {
                         viewModel.addSongToQueue(song)
                     } label: {
-                        SongListCell(name: song.name, imageUrl: song.album.images.first?.url)
+                        SongListCell(song: song)
                     }
                 }
             }.listStyle(PlainListStyle())
         }
         .toast(isPresenting: $viewModel.success, duration: 1, tapToDismiss: false, alert: {
             AlertToast(type: .complete(.white), title: "Added To Queue", subTitle: nil)
-        }, completion: {_ in})
-        .toast(isPresenting: $viewModel.failure, duration: 1, tapToDismiss: false, alert: {
+        }, completion: {_ in })
+        .toast(isPresenting:  $viewModel.failure, duration: 1, tapToDismiss: false, alert: {
             AlertToast(type: .systemImage("warning", .white), title: "Failed To Add To Queue", subTitle: nil)
         }, completion: {_ in})
         .navigationTitle("Search")
@@ -53,6 +53,6 @@ struct SongSearchView: View {
 
 struct SongSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SongSearchView()
+        SongSearchView(viewModel: SpotifySearchViewModel())
     }
 }
