@@ -7,14 +7,21 @@
 
 import SwiftUI
 import SpotifyAPI
+import FirebaseCore
 
 @main
 struct queuedApp: App {
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView().onOpenURL { url in
                 // Handle auth callbacks
                 SpotifyAPI.manager.handleRedirect(url: url)
+            }.onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+                
             }
         }
     }

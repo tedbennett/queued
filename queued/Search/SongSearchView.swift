@@ -8,8 +8,8 @@
 import SwiftUI
 import AlertToast
 
-struct SongSearchView<ViewModel: ServiceViewModel>: View {
-    @ObservedObject var viewModel: ViewModel
+struct SongSearchView: View {
+    @ObservedObject var viewModel = SpotifySearchViewModel()
     @State var isEditing = false
     var body: some View {
         VStack {
@@ -36,7 +36,10 @@ struct SongSearchView<ViewModel: ServiceViewModel>: View {
                     Button() {
                         viewModel.addSongToQueue(song)
                     } label: {
-                        SongListCell(song: song)
+                        HStack {
+                            ImageView(urlString: song.album.images.first?.url ?? "").frame(width:80, height: 80).cornerRadius(8)
+                            Text(song.name)
+                        }
                     }
                 }
             }.listStyle(PlainListStyle())

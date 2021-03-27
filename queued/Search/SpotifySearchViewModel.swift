@@ -8,18 +8,8 @@
 import SwiftUI
 import SpotifyAPI
 
-protocol ServiceViewModel: ObservableObject {
-    var songs: [Song] { get set }
-    var searchText: String { get set }
-    var success: Bool { get set }
-    var failure: Bool { get set }
-    
-    func getSongsFromSearch()
-    func addSongToQueue(_ song: Song)
-}
-
-class SpotifySearchViewModel: ServiceViewModel {
-    @Published var songs = [Song]()
+class SpotifySearchViewModel: ObservableObject {
+    @Published var songs = [SpotifyAPI.Track]()
     @Published var searchText = ""
     @Published var success = false
     @Published var failure = false
@@ -28,12 +18,12 @@ class SpotifySearchViewModel: ServiceViewModel {
         let encodedSearch = searchText.replacingOccurrences(of: " ", with: "+")
         SpotifyAPI.manager.search(for: "\(encodedSearch)") { (tracks: [SpotifyAPI.Track], url, error) in
             DispatchQueue.main.async {
-                self.songs = tracks.map { Song($0) }
+                self.songs = tracks
             }
         }
     }
     
-    func addSongToQueue(_ song: Song) {
+    func addSongToQueue(_ song: SpotifyAPI.Track) {
         let uri = song.uri
         SpotifyAPI.manager.addTrackToQueue(uri: uri) { success, error in
             

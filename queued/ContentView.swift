@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import BackgroundTasks
 
 struct ContentView: View {
     var body: some View {
-        HomeView()
+        Text("Hi")
     }
 }
 
