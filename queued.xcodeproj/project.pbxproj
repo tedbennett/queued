@@ -37,6 +37,7 @@
 		9FD356F425FE4D6300C66E41 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 9FD356F325FE4D6300C66E41 /* AlertToast */; };
 		9FD356F825FE7D2B00C66E41 /* AppleMusicAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 9FD356F725FE7D2B00C66E41 /* AppleMusicAPI */; };
 		9FEE69302610C1060007BB16 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 9FEE692F2610C1060007BB16 /* SwiftKeychainWrapper */; };
+		9FEE69332610E46B0007BB16 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE69322610E46B0007BB16 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		9FD356E625FE3F0D00C66E41 /* SpotifySearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifySearchViewModel.swift; sourceTree = "<group>"; };
 		9FD356EC25FE412B00C66E41 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		9FD356EF25FE4C6300C66E41 /* View+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Additions.swift"; sourceTree = "<group>"; };
+		9FEE69322610E46B0007BB16 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				9FA10609260A8D8B00D2C9A3 /* HomeView.swift */,
+				9FEE69322610E46B0007BB16 /* ProfileView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				9FD356F025FE4C6300C66E41 /* View+Additions.swift in Sources */,
 				9F7DF3082610954A005BCF83 /* SpotifyHostManager.swift in Sources */,
 				9F56A9CA26109F62000E7C71 /* SessionHostView.swift in Sources */,
+				9FEE69332610E46B0007BB16 /* ProfileView.swift in Sources */,
 				9FD356C725FE345D00C66E41 /* queuedApp.swift in Sources */,
 				9FD356E725FE3F0D00C66E41 /* SpotifySearchViewModel.swift in Sources */,
 			);

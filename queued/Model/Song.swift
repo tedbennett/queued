@@ -14,7 +14,7 @@ struct Song: Codable {
     var artist: String
     var album: String
     var imageUrl: String
-    var queuedBy: User?
+    var queuedBy: User
     
     enum CodingKeys: String, CodingKey {
         case id

@@ -26,7 +26,7 @@ class FirebaseManager {
             completion(nil)
             return
         }
-        UserManager.shared.getUser(id: id) { user in
+        getUser(id: id) { user in
             guard let user = user else {
                 print("Failed to retrieve user to create session")
                 completion(nil)
@@ -41,10 +41,11 @@ class FirebaseManager {
                 reference = try sessions.addDocument(from: session)
                 reference?.setData(["token": token], merge: true)
             } catch let error {
+                completion(nil)
                 print(error.localizedDescription)
             }
             
-            completion(reference != nil ? session : nil)
+            completion(session)
             
         }
         

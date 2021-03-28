@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var text = ""
+    @State private var presentProfile = false
     
     var body: some View {
         NavigationView {
@@ -50,6 +51,14 @@ struct HomeView: View {
                     })
                 
             }.navigationTitle("Join A Session")
+            .navigationBarItems(trailing: Button {
+                presentProfile.toggle()
+            } label: {
+                Image(systemName: "person.circle").font(.title2)
+            })
+            .sheet(isPresented: $presentProfile, content: {
+                ProfileView(present: $presentProfile)
+            })
         }
     }
 }

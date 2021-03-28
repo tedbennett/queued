@@ -9,71 +9,55 @@ import SwiftUI
 
 struct CreateSessionView: View {
     @State private var name = ""
+    @State private var password = ""
     @State private var sessionCreated = false
     @ObservedObject var auth = SpotifyHostManager.shared
     @ObservedObject var hostViewModel = SessionHostViewModel()
     
     var body: some View {
         VStack {
-            
-            Image(systemName: "camera.fill").font(.largeTitle).foregroundColor(Color(UIColor.systemGray5))
-                .frame(width: 250, height: 250)
-                .background(Color(UIColor.systemGray2))
-                .cornerRadius(5)
-                .padding(40)
-            
-            TextField("Session Name", text: $name).font(Font.system(size: 25, weight: .semibold, design: .rounded))
-                .multilineTextAlignment(.center)
-            Text("Please enter a valid name").padding(3).foregroundColor(.red).font(.callout).hidden()
-            
-            Button {
-                auth.login()
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color(UIColor.secondarySystemFill))
-                        .frame(height: 80)
+            Form {
+                
+                List {
                     HStack {
-                        Image("spotify_icon")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                        
-                        if auth.token == nil {
-                            Text("Log In to Spotify").font(Font.system(size: 20, weight: .semibold, design: .rounded))
-                                .padding(.horizontal, 10)
-                            Spacer()
-                        } else {
-                            Text("Logged In to Spotify").font(Font.system(size: 20, weight: .semibold, design: .rounded))
-                                .padding(.horizontal, 10)
+                        Spacer()
+                        Image(systemName: "camera.fill").font(.largeTitle).foregroundColor(Color(UIColor.systemGray5))
+                            .frame(width: 200, height: 200)
+                            .background(Color(UIColor.systemGray2))
+                            .cornerRadius(5)
+                        Spacer()
+                    }
+                    .listRowBackground(Color(UIColor.systemBackground))
+                    Section(header: Text("Name")) {
+                        TextField("Enter Name", text: $name)
+                    }
+                    Section(header: Text("Password"), footer: Text("A password allows you to control who can access your session")) {
+                        HStack {
+                            TextField("Enter Password (Optional)", text: $password).disableAutocorrection(true)
+                        }
+                    }
+                    Section(header: Text("Music Service")) {
+                        HStack {
+                            Text("Linked with Spotify")
                             Spacer()
                             Image(systemName: "checkmark")
                         }
-                    }.padding(20)
+                    }
+                    Section {
+                        Button {
+                            hostViewModel.createSession(name: name)
+                        } label: {
+                            NavigationLink(
+                                destination: SessionHostView(viewModel: hostViewModel),
+                                isActive: $hostViewModel.sessionCreated,
+                                label: {
+                                    Text("Create Session")
+                                }).disabled(auth.token == nil || name == "")
+                        }
+                    }
                 }
-            }.accentColor(.white)
-            .disabled(auth.token != nil)
-            .padding(40)
-            
-            Button {
-                hostViewModel.createSession(name: name)
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(auth.token == nil ? Color(UIColor.secondarySystemFill) : Color.blue)
-                    HStack {
-                        Spacer()
-                        Text("Create Session").font(Font.system(size: 20, weight: .semibold, design: .rounded))
-                            .padding(.horizontal, 10)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                    }.padding()
-                }
-                .frame(width: 250, height: 80)
-            }
-            .disabled(auth.token == nil)
-            Spacer()
-            NavigationLink("", destination: SessionHostView(viewModel: hostViewModel), isActive: $hostViewModel.sessionCreated)
-        }.navigationTitle("Create Session")
+            }.navigationTitle("Create Session")
+        }
     }
 }
 
