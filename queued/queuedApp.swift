@@ -19,7 +19,7 @@ struct queuedApp: App {
         WindowGroup {
             ContentView().onOpenURL { url in
                 // Handle auth callbacks
-                SpotifyAPI.manager.handleRedirect(url: url)
+                SpotifyHostManager.shared.handleRedirectURL(url)
             }.onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                 
             }

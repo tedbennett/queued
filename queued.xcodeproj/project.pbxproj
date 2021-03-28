@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		9F237A272600207200D5CA86 /* JoinSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F237A262600207200D5CA86 /* JoinSessionView.swift */; };
 		9F237A2A260020EE00D5CA86 /* JoinSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F237A29260020EE00D5CA86 /* JoinSessionViewModel.swift */; };
+		9F56A9CA26109F62000E7C71 /* SessionHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9C926109F62000E7C71 /* SessionHostView.swift */; };
+		9F56A9CD2610A288000E7C71 /* SessionHostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */; };
+		9F56A9D02610B172000E7C71 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9CF2610B172000E7C71 /* UserManager.swift */; };
 		9F7DF2E8260F9345005BCF83 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 9F7DF2E7260F9345005BCF83 /* FirebaseFunctions */; };
 		9F7DF2EA260F9345005BCF83 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 9F7DF2E9260F9345005BCF83 /* FirebaseFirestoreSwift-Beta */; };
 		9F7DF2EC260F9345005BCF83 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9F7DF2EB260F9345005BCF83 /* FirebaseAuth */; };
@@ -17,6 +20,10 @@
 		9F7DF2F3260F93BE005BCF83 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F7DF2F2260F93BE005BCF83 /* GoogleService-Info.plist */; };
 		9F7DF2F8260F945C005BCF83 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2F7260F945C005BCF83 /* FirebaseManager.swift */; };
 		9F7DF2FC260F9893005BCF83 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2FB260F9893005BCF83 /* Session.swift */; };
+		9F7DF2FF26108A25005BCF83 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2FE26108A25005BCF83 /* Song.swift */; };
+		9F7DF30226108A7C005BCF83 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF30126108A7B005BCF83 /* User.swift */; };
+		9F7DF30526108B2B005BCF83 /* CreateSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */; };
+		9F7DF3082610954A005BCF83 /* SpotifyHostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF3072610954A005BCF83 /* SpotifyHostManager.swift */; };
 		9FA1060A260A8D8B00D2C9A3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA10609260A8D8B00D2C9A3 /* HomeView.swift */; };
 		9FD356C725FE345D00C66E41 /* queuedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356C625FE345D00C66E41 /* queuedApp.swift */; };
 		9FD356C925FE345D00C66E41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356C825FE345D00C66E41 /* ContentView.swift */; };
@@ -29,14 +36,22 @@
 		9FD356F025FE4C6300C66E41 /* View+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356EF25FE4C6300C66E41 /* View+Additions.swift */; };
 		9FD356F425FE4D6300C66E41 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 9FD356F325FE4D6300C66E41 /* AlertToast */; };
 		9FD356F825FE7D2B00C66E41 /* AppleMusicAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 9FD356F725FE7D2B00C66E41 /* AppleMusicAPI */; };
+		9FEE69302610C1060007BB16 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 9FEE692F2610C1060007BB16 /* SwiftKeychainWrapper */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9F237A262600207200D5CA86 /* JoinSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionView.swift; sourceTree = "<group>"; };
 		9F237A29260020EE00D5CA86 /* JoinSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionViewModel.swift; sourceTree = "<group>"; };
+		9F56A9C926109F62000E7C71 /* SessionHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHostView.swift; sourceTree = "<group>"; };
+		9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHostViewModel.swift; sourceTree = "<group>"; };
+		9F56A9CF2610B172000E7C71 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		9F7DF2F2260F93BE005BCF83 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9F7DF2F7260F945C005BCF83 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		9F7DF2FB260F9893005BCF83 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		9F7DF2FE26108A25005BCF83 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		9F7DF30126108A7B005BCF83 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionView.swift; sourceTree = "<group>"; };
+		9F7DF3072610954A005BCF83 /* SpotifyHostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyHostManager.swift; sourceTree = "<group>"; };
 		9FA10609260A8D8B00D2C9A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9FD356C325FE345D00C66E41 /* queued.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = queued.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD356C625FE345D00C66E41 /* queuedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = queuedApp.swift; sourceTree = "<group>"; };
@@ -63,6 +78,7 @@
 				9F7DF2E8260F9345005BCF83 /* FirebaseFunctions in Frameworks */,
 				9F7DF2F0260F9345005BCF83 /* FirebaseDatabase in Frameworks */,
 				9F7DF2EE260F9345005BCF83 /* FirebaseFirestore in Frameworks */,
+				9FEE69302610C1060007BB16 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,59 +110,61 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		9F237A252600206500D5CA86 /* JoinSession */ = {
+		9F237A252600206500D5CA86 /* NearbySessions */ = {
 			isa = PBXGroup;
 			children = (
 				9F237A29260020EE00D5CA86 /* JoinSessionViewModel.swift */,
 				9F237A262600207200D5CA86 /* JoinSessionView.swift */,
 			);
-			path = JoinSession;
+			path = NearbySessions;
 			sourceTree = "<group>";
 		};
-		9F7DF2F5260F944F005BCF83 /* Manager */ = {
+		9F7DF2F5260F944F005BCF83 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				9F7DF2F7260F945C005BCF83 /* FirebaseManager.swift */,
+				9F7DF3072610954A005BCF83 /* SpotifyHostManager.swift */,
+				9F56A9CF2610B172000E7C71 /* UserManager.swift */,
 			);
-			path = Manager;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		9F7DF2FA260F9885005BCF83 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				9F7DF2FB260F9893005BCF83 /* Session.swift */,
+				9F7DF2FE26108A25005BCF83 /* Song.swift */,
+				9F7DF30126108A7B005BCF83 /* User.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9F7DF30A2610975A005BCF83 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9FD356C825FE345D00C66E41 /* ContentView.swift */,
+				9FA10608260A8D8000D2C9A3 /* Home */,
+				9FA103D52608985C00D2C9A3 /* SessionMember */,
+				9FA103D42608985500D2C9A3 /* SessionHost */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9FA103D42608985500D2C9A3 /* SessionHost */ = {
 			isa = PBXGroup;
 			children = (
+				9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */,
+				9F56A9C926109F62000E7C71 /* SessionHostView.swift */,
+				9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */,
 			);
 			path = SessionHost;
 			sourceTree = "<group>";
 		};
-		9FA103D52608985C00D2C9A3 /* SessionUser */ = {
-			isa = PBXGroup;
-			children = (
-				9FA103D72608988900D2C9A3 /* CurrentView */,
-				9FA103D62608987900D2C9A3 /* AddToQueue */,
-			);
-			path = SessionUser;
-			sourceTree = "<group>";
-		};
-		9FA103D62608987900D2C9A3 /* AddToQueue */ = {
+		9FA103D52608985C00D2C9A3 /* SessionMember */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = AddToQueue;
-			sourceTree = "<group>";
-		};
-		9FA103D72608988900D2C9A3 /* CurrentView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CurrentView;
+			path = SessionMember;
 			sourceTree = "<group>";
 		};
 		9FA10608260A8D8000D2C9A3 /* Home */ = {
@@ -177,13 +195,10 @@
 			isa = PBXGroup;
 			children = (
 				9FD356C625FE345D00C66E41 /* queuedApp.swift */,
-				9FD356C825FE345D00C66E41 /* ContentView.swift */,
 				9F7DF2F2260F93BE005BCF83 /* GoogleService-Info.plist */,
-				9F7DF2F5260F944F005BCF83 /* Manager */,
-				9FA10608260A8D8000D2C9A3 /* Home */,
-				9FA103D52608985C00D2C9A3 /* SessionUser */,
-				9FA103D42608985500D2C9A3 /* SessionHost */,
-				9F237A252600206500D5CA86 /* JoinSession */,
+				9F7DF2F5260F944F005BCF83 /* Managers */,
+				9F7DF30A2610975A005BCF83 /* Views */,
+				9F237A252600206500D5CA86 /* NearbySessions */,
 				9F237A1C26001D2900D5CA86 /* Search */,
 				9F237A2126001D6300D5CA86 /* Components */,
 				9F237A1F26001D5B00D5CA86 /* Extensions */,
@@ -228,6 +243,7 @@
 				9F7DF2EB260F9345005BCF83 /* FirebaseAuth */,
 				9F7DF2ED260F9345005BCF83 /* FirebaseFirestore */,
 				9F7DF2EF260F9345005BCF83 /* FirebaseDatabase */,
+				9FEE692F2610C1060007BB16 /* SwiftKeychainWrapper */,
 			);
 			productName = queued;
 			productReference = 9FD356C325FE345D00C66E41 /* queued.app */;
@@ -261,6 +277,7 @@
 				9FD356F225FE4D6300C66E41 /* XCRemoteSwiftPackageReference "AlertToast" */,
 				9FD356F625FE7D2B00C66E41 /* XCRemoteSwiftPackageReference "AppleMusicForSwift" */,
 				9F7DF2E6260F9345005BCF83 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9FEE692E2610C1050007BB16 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = 9FD356C425FE345D00C66E41 /* Products */;
 			projectDirPath = "";
@@ -289,15 +306,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F7DF30226108A7C005BCF83 /* User.swift in Sources */,
+				9F7DF2FF26108A25005BCF83 /* Song.swift in Sources */,
 				9FA1060A260A8D8B00D2C9A3 /* HomeView.swift in Sources */,
+				9F7DF30526108B2B005BCF83 /* CreateSessionView.swift in Sources */,
+				9F56A9CD2610A288000E7C71 /* SessionHostViewModel.swift in Sources */,
 				9F237A272600207200D5CA86 /* JoinSessionView.swift in Sources */,
 				9F7DF2F8260F945C005BCF83 /* FirebaseManager.swift in Sources */,
+				9F56A9D02610B172000E7C71 /* UserManager.swift in Sources */,
 				9FD356ED25FE412B00C66E41 /* ImageView.swift in Sources */,
 				9F237A2A260020EE00D5CA86 /* JoinSessionViewModel.swift in Sources */,
 				9FD356C925FE345D00C66E41 /* ContentView.swift in Sources */,
 				9FD356E425FE3EDE00C66E41 /* SongSearchView.swift in Sources */,
 				9F7DF2FC260F9893005BCF83 /* Session.swift in Sources */,
 				9FD356F025FE4C6300C66E41 /* View+Additions.swift in Sources */,
+				9F7DF3082610954A005BCF83 /* SpotifyHostManager.swift in Sources */,
+				9F56A9CA26109F62000E7C71 /* SessionHostView.swift in Sources */,
 				9FD356C725FE345D00C66E41 /* queuedApp.swift in Sources */,
 				9FD356E725FE3F0D00C66E41 /* SpotifySearchViewModel.swift in Sources */,
 			);
@@ -522,6 +546,14 @@
 				kind = branch;
 			};
 		};
+		9FEE692E2610C1050007BB16 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -564,6 +596,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9FD356F625FE7D2B00C66E41 /* XCRemoteSwiftPackageReference "AppleMusicForSwift" */;
 			productName = AppleMusicAPI;
+		};
+		9FEE692F2610C1060007BB16 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FEE692E2610C1050007BB16 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
