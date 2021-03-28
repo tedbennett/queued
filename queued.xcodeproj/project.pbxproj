@@ -25,6 +25,8 @@
 		9F7DF30526108B2B005BCF83 /* CreateSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */; };
 		9F7DF3082610954A005BCF83 /* SpotifyHostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF3072610954A005BCF83 /* SpotifyHostManager.swift */; };
 		9FA1060A260A8D8B00D2C9A3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA10609260A8D8B00D2C9A3 /* HomeView.swift */; };
+		9FA8A4A12611286D009B222C /* SessionMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8A4A02611286D009B222C /* SessionMemberView.swift */; };
+		9FA8A4A4261128DF009B222C /* SessionMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8A4A3261128DF009B222C /* SessionMemberViewModel.swift */; };
 		9FD356C725FE345D00C66E41 /* queuedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356C625FE345D00C66E41 /* queuedApp.swift */; };
 		9FD356C925FE345D00C66E41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356C825FE345D00C66E41 /* ContentView.swift */; };
 		9FD356CB25FE346200C66E41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD356CA25FE346200C66E41 /* Assets.xcassets */; };
@@ -54,6 +56,8 @@
 		9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionView.swift; sourceTree = "<group>"; };
 		9F7DF3072610954A005BCF83 /* SpotifyHostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyHostManager.swift; sourceTree = "<group>"; };
 		9FA10609260A8D8B00D2C9A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		9FA8A4A02611286D009B222C /* SessionMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMemberView.swift; sourceTree = "<group>"; };
+		9FA8A4A3261128DF009B222C /* SessionMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMemberViewModel.swift; sourceTree = "<group>"; };
 		9FD356C325FE345D00C66E41 /* queued.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = queued.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD356C625FE345D00C66E41 /* queuedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = queuedApp.swift; sourceTree = "<group>"; };
 		9FD356C825FE345D00C66E41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -165,6 +169,8 @@
 		9FA103D52608985C00D2C9A3 /* SessionMember */ = {
 			isa = PBXGroup;
 			children = (
+				9FA8A4A02611286D009B222C /* SessionMemberView.swift */,
+				9FA8A4A3261128DF009B222C /* SessionMemberViewModel.swift */,
 			);
 			path = SessionMember;
 			sourceTree = "<group>";
@@ -311,9 +317,11 @@
 			files = (
 				9F7DF30226108A7C005BCF83 /* User.swift in Sources */,
 				9F7DF2FF26108A25005BCF83 /* Song.swift in Sources */,
+				9FA8A4A4261128DF009B222C /* SessionMemberViewModel.swift in Sources */,
 				9FA1060A260A8D8B00D2C9A3 /* HomeView.swift in Sources */,
 				9F7DF30526108B2B005BCF83 /* CreateSessionView.swift in Sources */,
 				9F56A9CD2610A288000E7C71 /* SessionHostViewModel.swift in Sources */,
+				9FA8A4A12611286D009B222C /* SessionMemberView.swift in Sources */,
 				9F237A272600207200D5CA86 /* JoinSessionView.swift in Sources */,
 				9F7DF2F8260F945C005BCF83 /* FirebaseManager.swift in Sources */,
 				9F56A9D02610B172000E7C71 /* UserManager.swift in Sources */,

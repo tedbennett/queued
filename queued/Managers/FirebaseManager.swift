@@ -22,33 +22,23 @@ class FirebaseManager {
     
     // MARK: Session
     func createSession(name: String, token: String, completion: @escaping (Session?) -> Void) {
-        guard let id = UserManager.shared.getId() else {
+        guard let userId = UserManager.shared.getId() else {
             completion(nil)
             return
         }
-        getUser(id: id) { user in
-            guard let user = user else {
-                print("Failed to retrieve user to create session")
-                completion(nil)
-                return
-            }
-            let session = Session(id: user.id, name: name, host: user, members: [], queue: [], createdAt: Date())
-            
-            let sessions = self.db.collection("sessions");
-            
-            var reference: DocumentReference? = nil
-            do {
-                reference = try sessions.addDocument(from: session)
-                reference?.setData(["token": token], merge: true)
-            } catch let error {
-                completion(nil)
-                print(error.localizedDescription)
-            }
-            
-            completion(session)
-            
-        }
         
+        let date = Date()
+        let data: [String : Any] = ["name": name, "host": userId, "members": [], "queue": [], "created_at": date]
+        
+        let sessions = self.db.collection("sessions");
+        
+        let ref = sessions.addDocument(data: data) { _ in }
+        let key = ref.documentID.prefix(6).uppercased()
+        ref.setData(["id": ref.documentID, "token": token, "key": key], merge: true)
+        
+        let session = Session(id: ref.documentID, name: name, key: key, host: userId, members: [], queue: [], createdAt: date)
+        
+        completion(session)
     }
     
     func getSession(id: String, completion:  @escaping (Session?) -> Void) {
@@ -77,6 +67,42 @@ class FirebaseManager {
                     completion(nil)
             }
         }
+    }
+    
+    func joinSession(key: String, completion:  @escaping (Session?) -> Void) {
+        guard let id = UserManager.shared.getId() else {
+            completion(nil)
+            return
+        }
+        let sessions = self.db.collection("sessions");
+        
+        sessions.whereField("key", isEqualTo: key).getDocuments() { data, error in
+            guard let document = data?.documents.first else {
+                print("Couldn't find key")
+                completion(nil)
+                return
+            }
+            
+            let result = Result {
+                try document.data(as: Session.self)
+            }
+            switch result {
+                case .success(let session):
+                    if let session = session {
+                        sessions.document(session.id).updateData([
+                            "members": FieldValue.arrayUnion([id])
+                        ])
+                        completion(session)
+                    } else {
+                        print("Document does not exist")
+                        completion(nil)
+                    }
+                case .failure(let error):
+                    print("Error decoding session: \(error)")
+                    completion(nil)
+            }
+        }
+        
     }
     
     func addSongToQueue(uri: String, sessionId: String, completion: @escaping (Bool) -> Void) {

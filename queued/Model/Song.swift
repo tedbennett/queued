@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Song: Codable {
+struct Song: Codable, Identifiable {
     var id: String
     var uri: String
     var name: String
     var artist: String
     var album: String
     var imageUrl: String
-    var queuedBy: User
+    var queuedBy: String
     
     enum CodingKeys: String, CodingKey {
         case id

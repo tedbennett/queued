@@ -10,14 +10,16 @@ import Foundation
 struct Session: Codable {
     var id: String
     var name: String
-    var host: User
-    var members: [User]
-    var queue: [String]
+    var key: String
+    var host: String
+    var members: [String]
+    var queue: [Song]
     var createdAt: Date
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
+        case key
         case host
         case members
         case queue

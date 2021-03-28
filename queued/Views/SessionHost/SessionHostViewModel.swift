@@ -25,7 +25,7 @@ class SessionHostViewModel: ObservableObject {
     
     static var example: SessionHostViewModel {
         let viewModel = SessionHostViewModel()
-        let session = Session(id: "", name: "New Session", host: User(id: "", name: "Host 1"), members: [], queue: [], createdAt: Date())
+        let session = Session(id: "", name: "New Session", key: "ABCDEF", host: User(id: "", name: "Host 1"), members: [], queue: [], createdAt: Date())
         viewModel.session = session
         return viewModel
     }
