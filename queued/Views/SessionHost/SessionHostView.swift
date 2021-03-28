@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct SessionHostView: View {
+    @ObservedObject var viewModel: SessionHostViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(viewModel.session?.name ?? "Name")
             .navigationTitle("Your Session")
     }
 }
 
 struct SessionHostView_Previews: PreviewProvider {
     static var previews: some View {
-        SessionHostView()
+        SessionHostView(viewModel: SessionHostViewModel.example)
     }
 }

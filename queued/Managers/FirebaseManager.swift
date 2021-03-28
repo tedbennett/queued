@@ -16,33 +16,38 @@ class FirebaseManager {
     private var db = Firestore.firestore()
     private var functions = Functions.functions()
     
-    private init() { }
+    private init() {
+        
+    }
     
     // MARK: Session
-    
-    func createSession(name: String, token: String, completion: @escaping (Bool) -> Void) {
-        guard let user = UserManager.shared.user else {
-            completion(false)
+    func createSession(name: String, token: String, completion: @escaping (Session?) -> Void) {
+        guard let id = UserManager.shared.getId() else {
+            completion(nil)
             return
         }
-        
-        let sessions = db.collection("sessions");
-        
-        sessions.addDocument(data: [
-            "name": name,
-            "host": user.name ?? "Host",
-            "host_id": user.id,
-            "members": [],
-            "queue": [],
-            "created_at": Timestamp(date: Date()),
-            "token": token,
-            "allow_requests": true
-        ]) { error in
-            if let error = error {
+        UserManager.shared.getUser(id: id) { user in
+            guard let user = user else {
+                print("Failed to retrieve user to create session")
+                completion(nil)
+                return
+            }
+            let session = Session(id: user.id, name: name, host: user, members: [], queue: [], createdAt: Date())
+            
+            let sessions = self.db.collection("sessions");
+            
+            var reference: DocumentReference? = nil
+            do {
+                reference = try sessions.addDocument(from: session)
+                reference?.setData(["token": token], merge: true)
+            } catch let error {
                 print(error.localizedDescription)
             }
-            completion(error == nil)
+            
+            completion(reference != nil ? session : nil)
+            
         }
+        
     }
     
     func getSession(id: String, completion:  @escaping (Session?) -> Void) {
@@ -126,8 +131,11 @@ class FirebaseManager {
     // MARK: User
     func createUser() -> String {
         let newUser = db.collection("users").document();
-        
-        return newUser.documentID
+        let id = newUser.documentID
+        newUser.setData([
+            "id": id
+        ])
+        return id
     }
     
     func getUser(id: String, completion: @escaping (User?) -> Void) {

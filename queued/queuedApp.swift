@@ -8,11 +8,20 @@
 import SwiftUI
 import SpotifyAPI
 import FirebaseCore
+import FirebaseAuth
 
 @main
 struct queuedApp: App {
     init() {
         FirebaseApp.configure()
+        Auth.auth().signInAnonymously() { (authResult, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            else {
+                UserManager.shared.checkUser()
+            }
+        }
     }
     
     var body: some Scene {

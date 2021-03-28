@@ -55,9 +55,7 @@ struct CreateSessionView: View {
             .padding(40)
             
             Button {
-                FirebaseManager.shared.createSession(name: name, token: auth.token!) { session in
-                    hostViewModel.session = session
-                }
+                hostViewModel.createSession(name: name)
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)
@@ -74,7 +72,7 @@ struct CreateSessionView: View {
             }
             .disabled(auth.token == nil)
             Spacer()
-            NavigationLink("", destination: SessionHostView(viewModel: hostViewModel), isActive: $sessionCreated)
+            NavigationLink("", destination: SessionHostView(viewModel: hostViewModel), isActive: $hostViewModel.sessionCreated)
         }.navigationTitle("Create Session")
     }
 }

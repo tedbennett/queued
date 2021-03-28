@@ -14,6 +14,7 @@ class SpotifyHostManager: ObservableObject {
     private var authClient: OAuth2CodeGrant?
     
     
+    
     @Published var token: String?
     
     func handleRedirectURL(_ url: URL) {
@@ -42,4 +43,5 @@ class SpotifyHostManager: ObservableObject {
             }
         })
     }
+    
 }
