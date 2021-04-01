@@ -14,9 +14,11 @@ class SessionHostViewModel: ObservableObject {
     
     func createSession(name: String) {
         NetworkManager.shared.createSession(name: name) { [weak self] session in
-            self?.session = session
-            if session != nil {
-                self?.sessionCreated = true
+            DispatchQueue.main.async {
+                self?.session = session
+                if session != nil {
+                    self?.sessionCreated = true
+                }
             }
         }
     }

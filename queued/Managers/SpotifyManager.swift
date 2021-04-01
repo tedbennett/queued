@@ -29,7 +29,9 @@ class SpotifyManager: ObservableObject {
         }
         if let code = url.queryItems?.first(where: { $0.name == "code" })?.value {
             NetworkManager.shared.authoriseWithSpotify(code: code) { success in
-                self.loggedIn = success
+                DispatchQueue.main.async {
+                    self.loggedIn = success
+                }
             }
         } else {
             print("Couldn't obtain code")

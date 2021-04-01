@@ -22,7 +22,7 @@ class UserManager: ObservableObject {
     }
     
     func createUser() {
-        NetworkManager.shared.createUser(name: nil, imageUrl: nil) { id in
+        NetworkManager.shared.createUser() { id in
             guard let id = id else { return }
             KeychainWrapper.standard.set(id, forKey: "user-id")
         }

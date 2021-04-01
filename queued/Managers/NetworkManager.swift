@@ -24,6 +24,9 @@ class NetworkManager {
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let formatter = DateFormatter()
+            formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:ss.SSS'Z'"
+            decoder.dateDecodingStrategy = .formatted(formatter)
             
             do {
                 let decoded = try decoder.decode(Object.self, from: data)
@@ -61,7 +64,7 @@ class NetworkManager {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
-        
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         let body: [String : String] = ["name": name, "host": userId]
         if let data = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed) {
             urlRequest.httpBody = data
@@ -126,7 +129,7 @@ class NetworkManager {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
-        
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         if let data = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed) {
             urlRequest.httpBody = data
         }
@@ -143,7 +146,7 @@ class NetworkManager {
     }
     
     // MARK: User
-    func createUser(name: String?, imageUrl: String?, completion: @escaping (String?) -> Void) {
+    func createUser(completion: @escaping (String?) -> Void) {
         let url = URL(string: "\(baseUrl)/users")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
@@ -151,20 +154,19 @@ class NetworkManager {
     }
     
     func getUser(id: String, completion: @escaping (User?) -> Void) {
-        let url = URL(string: "\(baseUrl)/sessions/\(id)")!
+        let url = URL(string: "\(baseUrl)/users/\(id)")!
         request(url: URLRequest(url: url)) { completion($0) }
     }
     
-    func updateUser(name: String?, imageUrl: String?, completion: @escaping (Bool) -> Void) {
+    func updateUser(name: String, imageUrl: String?, completion: @escaping (Bool) -> Void) {
         guard let userId = UserManager.shared.getId() else {
             completion(false)
             return
         }
-        var body = [String:String]()
+        var body = [String: String]()
         
-        if let name = name {
-            body["name"] = name
-        }
+        
+        body["name"] = name
         if let imageUrl = imageUrl {
             body["image_url"] = imageUrl
         }
@@ -172,7 +174,8 @@ class NetworkManager {
         let url = URL(string: "\(baseUrl)/users/\(userId)")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
-        if !body.isEmpty, let data = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed) {
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        if let data = try? JSONSerialization.data(withJSONObject: body) {
             urlRequest.httpBody = data
         }
         
@@ -190,7 +193,7 @@ class NetworkManager {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
-        
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         let body = ["code": code]
         if let data = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed) {
             urlRequest.httpBody = data

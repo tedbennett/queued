@@ -12,10 +12,4 @@ struct User: Codable {
     var name: String?
     var imageUrl: String?
     var host: Bool?
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case imageUrl = "image_url"
-    }
 }

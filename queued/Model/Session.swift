@@ -16,15 +16,5 @@ struct Session: Codable {
     var queue: [Song]
     var createdAt: Date
     
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case key
-        case host
-        case members
-        case queue
-        case createdAt = "created_at"
-    }
-    
     static let example = Session(id: "", name: "New Session", key: "ABCDEF", host: "host-id", members: [], queue: [], createdAt: Date())
 }
