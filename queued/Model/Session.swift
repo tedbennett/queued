@@ -25,4 +25,6 @@ struct Session: Codable {
         case queue
         case createdAt = "created_at"
     }
+    
+    static let example = Session(id: "", name: "New Session", key: "ABCDEF", host: "host-id", members: [], queue: [], createdAt: Date())
 }

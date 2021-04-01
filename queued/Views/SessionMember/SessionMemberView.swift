@@ -12,6 +12,7 @@ struct SessionMemberView: View {
     var body: some View {
         if let session = viewModel.session {
             List {
+                Text("Add Song to Queue")
                 ForEach(session.queue) { song in
                     Text(song.name)
                 }
@@ -20,8 +21,8 @@ struct SessionMemberView: View {
     }
 }
 
-//struct SessionMemberView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SessionMemberView()
-//    }
-//}
+struct SessionMemberView_Previews: PreviewProvider {
+    static var previews: some View {
+        SessionMemberView(viewModel: SessionMemberViewModel.example)
+    }
+}

@@ -22,21 +22,23 @@ struct HomeView: View {
                     .multilineTextAlignment(.center)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                Button {
-                    viewModel.joinSession(with: text)
-                } label: {
+                
                     NavigationLink(
                         destination: SessionMemberView(viewModel: viewModel),
-                        isActive: $viewModel.gotSession,
+                        isActive: $viewModel.joined,
                         label: {
+                            Button {
+                                viewModel.joinSession(with: text)
+                            } label: {
                             Text("Join").font(.title2)
                                 .foregroundColor(.white)
                                 .padding()
                                 .padding(.horizontal, 30)
                                 .background(Color.blue)
                                 .cornerRadius(10)
+                                
+                            }
                         }).disabled(text == "")
-                }
                 Spacer()
                 HStack {
                     VStack {

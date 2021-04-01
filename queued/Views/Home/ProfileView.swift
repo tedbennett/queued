@@ -12,7 +12,7 @@ struct ProfileView: View {
     @State private var name = ""
     @State private var imageUrl: String?
     
-    @ObservedObject private var auth = SpotifyHostManager.shared
+    @ObservedObject private var auth = SpotifyManager.shared
     var body: some View {
         NavigationView {
             Form {
@@ -29,7 +29,7 @@ struct ProfileView: View {
                         TextField("Enter Name", text: $name)
                     }
                     Section(header: Text("Music Service")) {
-                        if auth.token == nil {
+                        if !auth.loggedIn {
                             Button {
                                 auth.login()
                             } label: {
@@ -50,7 +50,7 @@ struct ProfileView: View {
                                 Image(systemName: "checkmark").foregroundColor(.gray)
                             }
                             Button(action: {
-                                auth.logout()
+                                //auth.logout()
                             }, label: {
                                 Text("Logout").foregroundColor(.red)
                             })
@@ -63,7 +63,7 @@ struct ProfileView: View {
             } label: {
                 Image(systemName: "xmark")
             }, trailing: Button {
-                _ = UserManager.shared.updateUser(name: name, imageUrl: imageUrl)
+                UserManager.shared.updateUser(name: name, imageUrl: imageUrl) { _ in }
                 present = false
             } label: {
                 Text("Save")

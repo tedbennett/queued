@@ -15,14 +15,17 @@ class UserManager: ObservableObject {
     // Not caching user for now
     
     func checkUser() {
+        KeychainWrapper.standard.remove(forKey: "user-id")
         if KeychainWrapper.standard.string(forKey: "user-id") == nil {
             createUser()
         }
     }
     
     func createUser() {
-        let id = FirebaseManager.shared.createUser()
-        KeychainWrapper.standard.set(id, forKey: "user-id")
+        NetworkManager.shared.createUser(name: nil, imageUrl: nil) { id in
+            guard let id = id else { return }
+            KeychainWrapper.standard.set(id, forKey: "user-id")
+        }
     }
     
     func getId() -> String? {
@@ -31,12 +34,10 @@ class UserManager: ObservableObject {
     
     func getUser(completion: @escaping (User?) -> Void) {
         guard let id = getId() else { return }
-        FirebaseManager.shared.getUser(id: id) {completion($0)}
+        NetworkManager.shared.getUser(id: id) {completion($0)}
     }
     
-    func updateUser(name: String, imageUrl: String?) -> Bool {
-        guard let id = getId() else { return false }
-        let user = User(id: id, name: name, imageUrl: imageUrl)
-        return FirebaseManager.shared.updateUser(user)
+    func updateUser(name: String, imageUrl: String?, completion: @escaping (Bool) -> Void) {
+        NetworkManager.shared.updateUser(name: name, imageUrl: imageUrl) {completion($0)}
     }
 }

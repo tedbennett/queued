@@ -11,6 +11,7 @@ struct User: Codable {
     var id: String
     var name: String?
     var imageUrl: String?
+    var host: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id

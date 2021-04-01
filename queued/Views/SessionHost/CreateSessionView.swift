@@ -11,7 +11,7 @@ struct CreateSessionView: View {
     @State private var name = ""
     @State private var password = ""
     @State private var sessionCreated = false
-    @ObservedObject var auth = SpotifyHostManager.shared
+    @ObservedObject var auth = SpotifyManager.shared
     @ObservedObject var hostViewModel = SessionHostViewModel()
     
     var body: some View {
@@ -48,11 +48,11 @@ struct CreateSessionView: View {
                             hostViewModel.createSession(name: name)
                         } label: {
                             NavigationLink(
-                                destination: SessionHostView(viewModel: hostViewModel),
+                                destination: SessionHostView(viewModel: hostViewModel).navigationBarBackButtonHidden(true),
                                 isActive: $hostViewModel.sessionCreated,
                                 label: {
                                     Text("Create Session")
-                                }).disabled(auth.token == nil || name == "")
+                                }).disabled(!auth.loggedIn || name == "")
                         }
                     }
                 }

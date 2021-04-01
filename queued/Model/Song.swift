@@ -9,7 +9,6 @@ import Foundation
 
 struct Song: Codable, Identifiable {
     var id: String
-    var uri: String
     var name: String
     var artist: String
     var album: String
@@ -18,7 +17,6 @@ struct Song: Codable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case uri
         case name
         case artist
         case album

@@ -12,18 +12,12 @@
 		9F56A9CA26109F62000E7C71 /* SessionHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9C926109F62000E7C71 /* SessionHostView.swift */; };
 		9F56A9CD2610A288000E7C71 /* SessionHostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */; };
 		9F56A9D02610B172000E7C71 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9CF2610B172000E7C71 /* UserManager.swift */; };
-		9F7DF2E8260F9345005BCF83 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 9F7DF2E7260F9345005BCF83 /* FirebaseFunctions */; };
-		9F7DF2EA260F9345005BCF83 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 9F7DF2E9260F9345005BCF83 /* FirebaseFirestoreSwift-Beta */; };
-		9F7DF2EC260F9345005BCF83 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9F7DF2EB260F9345005BCF83 /* FirebaseAuth */; };
-		9F7DF2EE260F9345005BCF83 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9F7DF2ED260F9345005BCF83 /* FirebaseFirestore */; };
-		9F7DF2F0260F9345005BCF83 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9F7DF2EF260F9345005BCF83 /* FirebaseDatabase */; };
-		9F7DF2F3260F93BE005BCF83 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F7DF2F2260F93BE005BCF83 /* GoogleService-Info.plist */; };
-		9F7DF2F8260F945C005BCF83 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2F7260F945C005BCF83 /* FirebaseManager.swift */; };
+		9F5A13FB26153DFB00C277D7 /* SpotifyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A13FA26153DFB00C277D7 /* SpotifyManager.swift */; };
+		9F7DF2F8260F945C005BCF83 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2F7260F945C005BCF83 /* NetworkManager.swift */; };
 		9F7DF2FC260F9893005BCF83 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2FB260F9893005BCF83 /* Session.swift */; };
 		9F7DF2FF26108A25005BCF83 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2FE26108A25005BCF83 /* Song.swift */; };
 		9F7DF30226108A7C005BCF83 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF30126108A7B005BCF83 /* User.swift */; };
 		9F7DF30526108B2B005BCF83 /* CreateSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */; };
-		9F7DF3082610954A005BCF83 /* SpotifyHostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF3072610954A005BCF83 /* SpotifyHostManager.swift */; };
 		9FA1060A260A8D8B00D2C9A3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA10609260A8D8B00D2C9A3 /* HomeView.swift */; };
 		9FA8A4A12611286D009B222C /* SessionMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8A4A02611286D009B222C /* SessionMemberView.swift */; };
 		9FA8A4A4261128DF009B222C /* SessionMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8A4A3261128DF009B222C /* SessionMemberViewModel.swift */; };
@@ -48,13 +42,12 @@
 		9F56A9C926109F62000E7C71 /* SessionHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHostView.swift; sourceTree = "<group>"; };
 		9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHostViewModel.swift; sourceTree = "<group>"; };
 		9F56A9CF2610B172000E7C71 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		9F7DF2F2260F93BE005BCF83 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9F7DF2F7260F945C005BCF83 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		9F5A13FA26153DFB00C277D7 /* SpotifyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyManager.swift; sourceTree = "<group>"; };
+		9F7DF2F7260F945C005BCF83 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9F7DF2FB260F9893005BCF83 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		9F7DF2FE26108A25005BCF83 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		9F7DF30126108A7B005BCF83 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionView.swift; sourceTree = "<group>"; };
-		9F7DF3072610954A005BCF83 /* SpotifyHostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyHostManager.swift; sourceTree = "<group>"; };
 		9FA10609260A8D8B00D2C9A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9FA8A4A02611286D009B222C /* SessionMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMemberView.swift; sourceTree = "<group>"; };
 		9FA8A4A3261128DF009B222C /* SessionMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMemberViewModel.swift; sourceTree = "<group>"; };
@@ -77,13 +70,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FD356F825FE7D2B00C66E41 /* AppleMusicAPI in Frameworks */,
-				9F7DF2EC260F9345005BCF83 /* FirebaseAuth in Frameworks */,
 				9FD356D825FE3A2D00C66E41 /* SpotifyAPI in Frameworks */,
-				9F7DF2EA260F9345005BCF83 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				9FD356F425FE4D6300C66E41 /* AlertToast in Frameworks */,
-				9F7DF2E8260F9345005BCF83 /* FirebaseFunctions in Frameworks */,
-				9F7DF2F0260F9345005BCF83 /* FirebaseDatabase in Frameworks */,
-				9F7DF2EE260F9345005BCF83 /* FirebaseFirestore in Frameworks */,
 				9FEE69302610C1060007BB16 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,9 +116,9 @@
 		9F7DF2F5260F944F005BCF83 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				9F7DF2F7260F945C005BCF83 /* FirebaseManager.swift */,
-				9F7DF3072610954A005BCF83 /* SpotifyHostManager.swift */,
+				9F7DF2F7260F945C005BCF83 /* NetworkManager.swift */,
 				9F56A9CF2610B172000E7C71 /* UserManager.swift */,
+				9F5A13FA26153DFB00C277D7 /* SpotifyManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -204,7 +192,6 @@
 			isa = PBXGroup;
 			children = (
 				9FD356C625FE345D00C66E41 /* queuedApp.swift */,
-				9F7DF2F2260F93BE005BCF83 /* GoogleService-Info.plist */,
 				9F7DF2F5260F944F005BCF83 /* Managers */,
 				9F7DF30A2610975A005BCF83 /* Views */,
 				9F237A252600206500D5CA86 /* NearbySessions */,
@@ -247,11 +234,6 @@
 				9FD356D725FE3A2D00C66E41 /* SpotifyAPI */,
 				9FD356F325FE4D6300C66E41 /* AlertToast */,
 				9FD356F725FE7D2B00C66E41 /* AppleMusicAPI */,
-				9F7DF2E7260F9345005BCF83 /* FirebaseFunctions */,
-				9F7DF2E9260F9345005BCF83 /* FirebaseFirestoreSwift-Beta */,
-				9F7DF2EB260F9345005BCF83 /* FirebaseAuth */,
-				9F7DF2ED260F9345005BCF83 /* FirebaseFirestore */,
-				9F7DF2EF260F9345005BCF83 /* FirebaseDatabase */,
 				9FEE692F2610C1060007BB16 /* SwiftKeychainWrapper */,
 			);
 			productName = queued;
@@ -285,7 +267,6 @@
 				9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */,
 				9FD356F225FE4D6300C66E41 /* XCRemoteSwiftPackageReference "AlertToast" */,
 				9FD356F625FE7D2B00C66E41 /* XCRemoteSwiftPackageReference "AppleMusicForSwift" */,
-				9F7DF2E6260F9345005BCF83 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				9FEE692E2610C1050007BB16 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = 9FD356C425FE345D00C66E41 /* Products */;
@@ -304,7 +285,6 @@
 			files = (
 				9FD356CE25FE346200C66E41 /* Preview Assets.xcassets in Resources */,
 				9FD356CB25FE346200C66E41 /* Assets.xcassets in Resources */,
-				9F7DF2F3260F93BE005BCF83 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,15 +303,15 @@
 				9F56A9CD2610A288000E7C71 /* SessionHostViewModel.swift in Sources */,
 				9FA8A4A12611286D009B222C /* SessionMemberView.swift in Sources */,
 				9F237A272600207200D5CA86 /* JoinSessionView.swift in Sources */,
-				9F7DF2F8260F945C005BCF83 /* FirebaseManager.swift in Sources */,
+				9F7DF2F8260F945C005BCF83 /* NetworkManager.swift in Sources */,
 				9F56A9D02610B172000E7C71 /* UserManager.swift in Sources */,
 				9FD356ED25FE412B00C66E41 /* ImageView.swift in Sources */,
 				9F237A2A260020EE00D5CA86 /* JoinSessionViewModel.swift in Sources */,
 				9FD356C925FE345D00C66E41 /* ContentView.swift in Sources */,
 				9FD356E425FE3EDE00C66E41 /* SongSearchView.swift in Sources */,
 				9F7DF2FC260F9893005BCF83 /* Session.swift in Sources */,
+				9F5A13FB26153DFB00C277D7 /* SpotifyManager.swift in Sources */,
 				9FD356F025FE4C6300C66E41 /* View+Additions.swift in Sources */,
-				9F7DF3082610954A005BCF83 /* SpotifyHostManager.swift in Sources */,
 				9F56A9CA26109F62000E7C71 /* SessionHostView.swift in Sources */,
 				9FEE69332610E46B0007BB16 /* ProfileView.swift in Sources */,
 				9FD356C725FE345D00C66E41 /* queuedApp.swift in Sources */,
@@ -526,14 +506,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9F7DF2E6260F9345005BCF83 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.9.1;
-			};
-		};
 		9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tedbennett/SpotifyForSwift.git";
@@ -569,31 +541,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9F7DF2E7260F9345005BCF83 /* FirebaseFunctions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9F7DF2E6260F9345005BCF83 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFunctions;
-		};
-		9F7DF2E9260F9345005BCF83 /* FirebaseFirestoreSwift-Beta */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9F7DF2E6260F9345005BCF83 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseFirestoreSwift-Beta";
-		};
-		9F7DF2EB260F9345005BCF83 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9F7DF2E6260F9345005BCF83 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		9F7DF2ED260F9345005BCF83 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9F7DF2E6260F9345005BCF83 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		9F7DF2EF260F9345005BCF83 /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9F7DF2E6260F9345005BCF83 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
 		9FD356D725FE3A2D00C66E41 /* SpotifyAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */;

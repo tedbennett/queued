@@ -9,29 +9,32 @@ import Foundation
 import Combine
 
 class SessionMemberViewModel: ObservableObject {
+    private var listenerId = ""
     @Published var session: Session?
     @Published var joined = false
     
     func joinSession(with key: String) {
-        FirebaseManager.shared.joinSession(key: key) { [weak self] session in
-            if let session = session {
-                self?.session = session
-                self?.joined = true
-                self?.startListening()
-            }
-        }
-    }
-    
-    func startListening() {
-        guard let id = session?.id else {
-            return
-        }
-        FirebaseManager.shared.listenToSession(id: id) { [weak self] session in
+        NetworkManager.shared.getSession(key: key) { [weak self] session in
             guard let session = session else {
-                print("Failed to download listented session")
+                // TODO: Failed to find session
                 return
             }
-            self?.session = session
+            NetworkManager.shared.joinSession(id: session.id) { [weak self] session in
+                if let session = session {
+                    self?.session = session
+                    self?.joined = true
+                }
+            }
         }
+        
+    }
+    
+    // TODO: Reimplement listeners
+    
+    static var example: SessionMemberViewModel {
+        let viewModel = SessionMemberViewModel()
+        
+        viewModel.session = Session.example
+        return viewModel
     }
 }
