@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F08FCFE26160510006E287E /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 9F08FCFD26160510006E287E /* Starscream */; };
 		9F237A272600207200D5CA86 /* JoinSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F237A262600207200D5CA86 /* JoinSessionView.swift */; };
 		9F237A2A260020EE00D5CA86 /* JoinSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F237A29260020EE00D5CA86 /* JoinSessionViewModel.swift */; };
 		9F56A9CA26109F62000E7C71 /* SessionHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9C926109F62000E7C71 /* SessionHostView.swift */; };
@@ -72,6 +73,7 @@
 				9FD356F825FE7D2B00C66E41 /* AppleMusicAPI in Frameworks */,
 				9FD356D825FE3A2D00C66E41 /* SpotifyAPI in Frameworks */,
 				9FD356F425FE4D6300C66E41 /* AlertToast in Frameworks */,
+				9F08FCFE26160510006E287E /* Starscream in Frameworks */,
 				9FEE69302610C1060007BB16 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,6 +237,7 @@
 				9FD356F325FE4D6300C66E41 /* AlertToast */,
 				9FD356F725FE7D2B00C66E41 /* AppleMusicAPI */,
 				9FEE692F2610C1060007BB16 /* SwiftKeychainWrapper */,
+				9F08FCFD26160510006E287E /* Starscream */,
 			);
 			productName = queued;
 			productReference = 9FD356C325FE345D00C66E41 /* queued.app */;
@@ -268,6 +271,7 @@
 				9FD356F225FE4D6300C66E41 /* XCRemoteSwiftPackageReference "AlertToast" */,
 				9FD356F625FE7D2B00C66E41 /* XCRemoteSwiftPackageReference "AppleMusicForSwift" */,
 				9FEE692E2610C1050007BB16 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				9F08FCFC26160510006E287E /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = 9FD356C425FE345D00C66E41 /* Products */;
 			projectDirPath = "";
@@ -506,6 +510,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9F08FCFC26160510006E287E /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
+			};
+		};
 		9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tedbennett/SpotifyForSwift.git";
@@ -541,6 +553,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9F08FCFD26160510006E287E /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F08FCFC26160510006E287E /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
 		9FD356D725FE3A2D00C66E41 /* SpotifyAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9FD356D625FE3A2D00C66E41 /* XCRemoteSwiftPackageReference "SpotifyForSwift" */;

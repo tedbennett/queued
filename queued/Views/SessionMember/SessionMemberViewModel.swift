@@ -19,10 +19,17 @@ class SessionMemberViewModel: ObservableObject {
                 // TODO: Failed to find session
                 return
             }
-            NetworkManager.shared.joinSession(id: session.id) { [weak self] session in
-                if let session = session {
-                    self?.session = session
-                    self?.joined = true
+            NetworkManager.shared.joinSession(id: session.id) { [weak self] joinedSession in
+                DispatchQueue.main.async {
+                    if let joinedSession = joinedSession {
+                        self?.session = joinedSession
+                        self?.joined = true
+                        NetworkManager.shared.listenToSession(id: joinedSession.id, connectionChanged: { connected in
+                            print(connected ? "Listening" : "Stopped listening")
+                        }, sessionChanged: { session in
+                            self?.session = session
+                        })
+                    }
                 }
             }
         }

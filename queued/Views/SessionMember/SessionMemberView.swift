@@ -13,8 +13,8 @@ struct SessionMemberView: View {
         if let session = viewModel.session {
             List {
                 Text("Add Song to Queue")
-                ForEach(session.queue) { song in
-                    Text(song.name)
+                ForEach(session.members, id: \.self) { song in
+                    Text(song)
                 }
             }.navigationTitle(session.name)
         }

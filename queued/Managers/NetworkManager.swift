@@ -6,15 +6,19 @@
 //
 
 import Foundation
+import Starscream
 
 class NetworkManager {
     static var shared = NetworkManager()
     
-    let baseUrl = "https://queued1.herokuapp.com"
+    private let baseUrl = "https://queued1.herokuapp.com"
+    private let wsUrl = "ws://queued1.herokuapp.com"
+    private var socket: WebSocket?
+    var isConnected = false
     
     private init() { }
     
-    func request<Object: Decodable>(url: URLRequest, completion: @escaping (Object?) -> Void) {
+    private func request<Object: Decodable>(url: URLRequest, completion: @escaping (Object?) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard error == nil, let data = data else {
                 print(error.debugDescription)
@@ -24,10 +28,6 @@ class NetworkManager {
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            let formatter = DateFormatter()
-            formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:ss.SSS'Z'"
-            decoder.dateDecodingStrategy = .formatted(formatter)
-            
             do {
                 let decoded = try decoder.decode(Object.self, from: data)
                 completion(decoded)
@@ -41,7 +41,7 @@ class NetworkManager {
         }.resume()
     }
     
-    func requestWithoutBody(url: URLRequest, completion: @escaping (Bool) -> Void) {
+    private func requestWithoutBody(url: URLRequest, completion: @escaping (Bool) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard error == nil else {
                 print(error.debugDescription)
@@ -134,6 +134,51 @@ class NetworkManager {
             urlRequest.httpBody = data
         }
         requestWithoutBody(url: urlRequest) { completion($0) }
+    }
+    
+    func listenToSession(id: String, connectionChanged: @escaping (Bool) -> Void, sessionChanged: @escaping (Session?) -> Void) {
+        var request = URLRequest(url: URL(string: wsUrl)!)
+        request.timeoutInterval = 5
+        socket = WebSocket(request: request)
+        socket?.connect()
+        socket?.onEvent = { event in
+            switch event {
+                case .connected(let headers):
+                    connectionChanged(true)
+                    let response = ["sessionId": id, "type": "join"]
+                    if let data = try? JSONSerialization.data(withJSONObject: response) {
+                        self.socket?.write(data: data)
+                    }
+                    print("websocket is connected: \(headers)")
+                case .disconnected(let reason, let code):
+                    connectionChanged(false)
+                    print("websocket is disconnected: \(reason) with code: \(code)")
+                case .text(let string):
+                    print("Received text: \(string)")
+                    guard let data = string.data(using: .utf8) else { sessionChanged(nil)
+                        return
+                    }
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    if let session = try? decoder.decode(Session.self, from: data) {
+                        sessionChanged(session)
+                    }
+                case .binary(let data):
+                    print("Received data: \(data.count)")
+                    
+                case .cancelled:
+                    connectionChanged(false)
+                case .error(let error):
+                    print("Websocket error: \(error.debugDescription)")
+                    connectionChanged(false)
+                default:
+                    break
+            }
+        }
+    }
+    
+    func stopListeningToSession() {
+        socket?.disconnect()
     }
     
     func deleteSession(id: String, completion: @escaping (Bool) -> Void) {

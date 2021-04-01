@@ -15,7 +15,6 @@ class UserManager: ObservableObject {
     // Not caching user for now
     
     func checkUser() {
-        KeychainWrapper.standard.remove(forKey: "user-id")
         if KeychainWrapper.standard.string(forKey: "user-id") == nil {
             createUser()
         }
