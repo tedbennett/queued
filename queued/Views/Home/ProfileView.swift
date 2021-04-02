@@ -11,6 +11,7 @@ struct ProfileView: View {
     @Binding var present: Bool
     @State private var name = ""
     @State private var imageUrl: String?
+    @State private var host = false
     
     @ObservedObject private var auth = SpotifyManager.shared
     var body: some View {
@@ -29,18 +30,7 @@ struct ProfileView: View {
                         TextField("Enter Name", text: $name)
                     }
                     Section(header: Text("Music Service")) {
-                        if !auth.loggedIn {
-                            Button {
-                                auth.login()
-                            } label: {
-                                HStack {
-                                    Image("spotify_icon").resizable().frame(width: 50, height: 50)
-                                    Text("Log In to Spotify").padding()
-                                    Spacer()
-                                    Image(systemName: "chevron.right").foregroundColor(.gray)
-                                }
-                            }.buttonStyle(PlainButtonStyle())
-                        } else {
+                        if auth.loggedIn || host {
                             
                             HStack {
                                 Image("spotify_icon").resizable().frame(width: 50, height: 50)
@@ -54,6 +44,17 @@ struct ProfileView: View {
                             }, label: {
                                 Text("Logout").foregroundColor(.red)
                             })
+                        } else {
+                            Button {
+                                auth.login()
+                            } label: {
+                                HStack {
+                                    Image("spotify_icon").resizable().frame(width: 50, height: 50)
+                                    Text("Log In to Spotify").padding()
+                                    Spacer()
+                                    Image(systemName: "chevron.right").foregroundColor(.gray)
+                                }
+                            }.buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
@@ -75,6 +76,7 @@ struct ProfileView: View {
                 }
                 name = user.name ?? ""
                 imageUrl = user.imageUrl ?? nil
+                host = user.host ?? false
             }
         }
     }

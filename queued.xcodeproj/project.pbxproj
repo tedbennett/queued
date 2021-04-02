@@ -14,6 +14,7 @@
 		9F56A9CD2610A288000E7C71 /* SessionHostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */; };
 		9F56A9D02610B172000E7C71 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9CF2610B172000E7C71 /* UserManager.swift */; };
 		9F5A13FB26153DFB00C277D7 /* SpotifyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A13FA26153DFB00C277D7 /* SpotifyManager.swift */; };
+		9F7503CB26167A1900636386 /* SongCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7503CA26167A1900636386 /* SongCellView.swift */; };
 		9F7DF2F8260F945C005BCF83 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2F7260F945C005BCF83 /* NetworkManager.swift */; };
 		9F7DF2FC260F9893005BCF83 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2FB260F9893005BCF83 /* Session.swift */; };
 		9F7DF2FF26108A25005BCF83 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2FE26108A25005BCF83 /* Song.swift */; };
@@ -44,6 +45,7 @@
 		9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHostViewModel.swift; sourceTree = "<group>"; };
 		9F56A9CF2610B172000E7C71 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		9F5A13FA26153DFB00C277D7 /* SpotifyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyManager.swift; sourceTree = "<group>"; };
+		9F7503CA26167A1900636386 /* SongCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCellView.swift; sourceTree = "<group>"; };
 		9F7DF2F7260F945C005BCF83 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9F7DF2FB260F9893005BCF83 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		9F7DF2FE26108A25005BCF83 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				9FD356EC25FE412B00C66E41 /* ImageView.swift */,
+				9F7503CA26167A1900636386 /* SongCellView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				9FA8A4A4261128DF009B222C /* SessionMemberViewModel.swift in Sources */,
 				9FA1060A260A8D8B00D2C9A3 /* HomeView.swift in Sources */,
 				9F7DF30526108B2B005BCF83 /* CreateSessionView.swift in Sources */,
+				9F7503CB26167A1900636386 /* SongCellView.swift in Sources */,
 				9F56A9CD2610A288000E7C71 /* SessionHostViewModel.swift in Sources */,
 				9FA8A4A12611286D009B222C /* SessionMemberView.swift in Sources */,
 				9F237A272600207200D5CA86 /* JoinSessionView.swift in Sources */,

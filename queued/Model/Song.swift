@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SpotifyAPI
 
 struct Song: Codable, Identifiable {
     var id: String
@@ -13,14 +14,15 @@ struct Song: Codable, Identifiable {
     var artist: String
     var album: String
     var imageUrl: String
-    var queuedBy: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case artist
-        case album
-        case imageUrl = "image_url"
-        case queuedBy = "queued_by"
+    var queuedBy: String?
+}
+
+extension Song {
+    init(from track: SpotifyAPI.Track) {
+        id = track.uri
+        name = track.name
+        artist = track.artists.first?.name ?? "Unknown"
+        album = track.album.name
+        imageUrl = track.album.images.first?.url ?? ""
     }
 }

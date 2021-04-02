@@ -28,8 +28,11 @@ struct SessionHostView: View {
                     }
                 }
                 List {
-                    ForEach(session.members, id: \.self) {
-                        Text($0)
+                    ForEach(viewModel.users) { user in
+                        HStack {
+                            ImageView(urlString: user.imageUrl ?? "").frame(width:80, height: 80).cornerRadius(8)
+                            Text(user.name ?? "Session member").font(.title2)
+                        }.padding(5)
                     }
                 }
             }

@@ -9,14 +9,23 @@ import SwiftUI
 
 struct SessionMemberView: View {
     @ObservedObject var viewModel: SessionMemberViewModel
+    @State private var present = false
+    
     var body: some View {
         if let session = viewModel.session {
             List {
-                Text("Add Song to Queue")
-                ForEach(session.members, id: \.self) { song in
-                    Text(song)
+                Button {
+                    present.toggle()
+                } label: {
+                    Text("Add Song to Queue")
+                
+                }
+                ForEach(session.queue) { song in
+                    SongCellView(song: song)
                 }
             }.navigationTitle(session.name)
+        
+            .sheet(isPresented: $present, content: { SongSearchView(sessionId: session.id, present: $present) })
         }
     }
 }

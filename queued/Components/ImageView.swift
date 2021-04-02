@@ -19,6 +19,7 @@ struct ImageView: View {
             Image(uiImage: viewModel.image!)
                 .resizable()
                 .scaledToFit()
+                .background(Color(UIColor.systemGray2))
         } else {
             Image(systemName: "camera")
                 .scaledToFit()
@@ -63,7 +64,7 @@ class ImageFromUrlViewModel: ObservableObject {
     }
     
     func loadImageFromUrl() {
-        guard let urlString = urlString else {
+        guard let urlString = urlString, urlString != "" else {
             return
         }
         

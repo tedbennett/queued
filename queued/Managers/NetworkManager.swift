@@ -124,8 +124,7 @@ class NetworkManager {
             "image_url": song.imageUrl,
             "queued_by": userId
         ]
-        
-        let url = URL(string: "\(baseUrl)/sessions/\(sessionId)")!
+        let url = URL(string: "\(baseUrl)/sessions/\(sessionId)/queue")!
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
@@ -163,9 +162,6 @@ class NetworkManager {
                     if let session = try? decoder.decode(Session.self, from: data) {
                         sessionChanged(session)
                     }
-                case .binary(let data):
-                    print("Received data: \(data.count)")
-                    
                 case .cancelled:
                     connectionChanged(false)
                 case .error(let error):

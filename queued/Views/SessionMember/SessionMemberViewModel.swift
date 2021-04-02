@@ -36,8 +36,16 @@ class SessionMemberViewModel: ObservableObject {
         
     }
     
-    // TODO: Reimplement listeners
-    
+    func leaveSession() {
+        guard let id = session?.id else {
+            return
+        }
+        NetworkManager.shared.leaveSession(id: id) { success in
+            if success {
+                NetworkManager.shared.stopListeningToSession()
+            }
+        }
+    }
     static var example: SessionMemberViewModel {
         let viewModel = SessionMemberViewModel()
         

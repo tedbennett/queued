@@ -9,33 +9,35 @@ import SwiftUI
 import SpotifyAPI
 
 class SpotifySearchViewModel: ObservableObject {
-    @Published var songs = [SpotifyAPI.Track]()
+    @Published var songs = [Song]()
     @Published var searchText = ""
     @Published var success = false
     @Published var failure = false
+    
+    var sessionId: String
+    
+    init(sessionId: String) {
+        self.sessionId = sessionId
+    }
     
     func getSongsFromSearch() {
         let encodedSearch = searchText.replacingOccurrences(of: " ", with: "+")
         SpotifyAPI.manager.search(for: "\(encodedSearch)") { (tracks: [SpotifyAPI.Track], url, error) in
             DispatchQueue.main.async {
-                self.songs = tracks
+                self.songs = tracks.map { Song(from: $0)}
             }
         }
     }
     
-    func addSongToQueue(_ song: SpotifyAPI.Track) {
-        let uri = song.uri
-        SpotifyAPI.manager.addTrackToQueue(uri: uri) { success, error in
-            
+    func addSongToQueue(_ song: Song) {
+        NetworkManager.shared.addSongToQueue(song, sessionId: sessionId) { [weak self] success in
             DispatchQueue.main.async {
                 if success {
-                    self.success = true
+                    self?.success = true
                 } else {
-                    self.failure = true
+                    self?.failure = true
                 }
             }
-            
-            
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
         }
