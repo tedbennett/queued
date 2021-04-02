@@ -8,34 +8,56 @@
 import SwiftUI
 
 struct SessionMemberView: View {
-    @ObservedObject var viewModel: SessionMemberViewModel
-    @State private var present = false
+    @EnvironmentObject var manager: SessionManager
+    @Environment(\.presentationMode) var presentation
+    @State var activeSheet: ActiveSheet?
     
     var body: some View {
-        if let session = viewModel.session {
+        if let session = manager.session {
             List {
                 Button {
-                    present.toggle()
+                    activeSheet = .search
                 } label: {
-                    Text("Add Song to Queue")
-                
+                    HStack {
+                        Image(systemName: "plus").font(.largeTitle)
+                        Text("Add Song to Queue").font(.title2).padding()
+                    }
                 }
                 ForEach(session.queue) { song in
                     SongCellView(song: song)
                 }
             }.navigationTitle(session.name)
             .navigationBarItems(leading: Button {
-                viewModel.leaveSession()
+                manager.leaveSession()
             } label: {
                 Text("Leave").foregroundColor(.red)
+            }, trailing: Button {
+                activeSheet = .members
+            } label: {
+                Image(systemName: "person.2.circle").font(.title)
             })
-            .sheet(isPresented: $present, content: { SongSearchView(sessionId: session.id, present: $present) })
+            .sheet(item: $activeSheet) { item in
+                switch item {
+                    case .members:
+                        SessionMemberDetailsView()
+                    case .search:
+                        SongSearchView(sessionId: session.id)
+                }
+            }
+        }
+    }
+    
+    enum ActiveSheet: Identifiable {
+        case members, search
+        
+        var id: Int {
+            hashValue
         }
     }
 }
 
 struct SessionMemberView_Previews: PreviewProvider {
     static var previews: some View {
-        SessionMemberView(viewModel: SessionMemberViewModel.example)
+        SessionMemberView()
     }
 }

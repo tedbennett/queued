@@ -8,15 +8,11 @@
 import SwiftUI
 
 struct SessionHostSettingsView: View {
+    @EnvironmentObject var manager: SessionManager
     @Environment(\.presentationMode) var presentation
-    @ObservedObject var viewModel: SessionHostViewModel
     
     @State private var name = ""
     @State private var showAlert = false
-    
-    func closeSession() {
-        viewModel.deleteSession()
-    }
     
     var body: some View {
         NavigationView {
@@ -42,12 +38,11 @@ struct SessionHostSettingsView: View {
             Alert(title: Text("Delete Session?"),
                   primaryButton: .destructive(Text("OK")) {
                     presentation.wrappedValue.dismiss()
-                    viewModel.deleteSession()
+                    manager.deleteSession()
                   },
                   secondaryButton: .cancel())
-        }
-        .onAppear {
-            name = viewModel.session?.name ?? ""
+        }.onAppear {
+            name = manager.session?.name ?? ""
         }
     }
 }

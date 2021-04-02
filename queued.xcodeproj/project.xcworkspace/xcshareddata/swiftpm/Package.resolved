@@ -1,0 +1,61 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AlertToast",
+        "repositoryURL": "https://github.com/elai950/AlertToast.git",
+        "state": {
+          "branch": "master",
+          "revision": "3238e08174a242d7f4cf75cd5f3b468030d1e8e8",
+          "version": null
+        }
+      },
+      {
+        "package": "AppleMusicAPI",
+        "repositoryURL": "https://github.com/tedbennett/AppleMusicForSwift.git",
+        "state": {
+          "branch": "main",
+          "revision": "565e8d4ba8ba83923b9298104644b02bbe01ed7b",
+          "version": null
+        }
+      },
+      {
+        "package": "OAuth2",
+        "repositoryURL": "https://github.com/p2/OAuth2.git",
+        "state": {
+          "branch": null,
+          "revision": "7acf3fe72c43309c0b6ce84d82290d3912159699",
+          "version": "5.3.1"
+        }
+      },
+      {
+        "package": "SpotifyAPI",
+        "repositoryURL": "https://github.com/tedbennett/SpotifyForSwift.git",
+        "state": {
+          "branch": "main",
+          "revision": "c770e6cfee8a5721acdcbb6178c4159325070176",
+          "version": null
+        }
+      },
+      {
+        "package": "Starscream",
+        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
+        "state": {
+          "branch": null,
+          "revision": "df8d82047f6654d8e4b655d1b1525c64e1059d21",
+          "version": "4.0.4"
+        }
+      },
+      {
+        "package": "SwiftKeychainWrapper",
+        "repositoryURL": "https://github.com/jrendel/SwiftKeychainWrapper",
+        "state": {
+          "branch": null,
+          "revision": "185a3165346a03767101c4f62e9a545a0fe0530f",
+          "version": "4.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

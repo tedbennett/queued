@@ -9,13 +9,13 @@ import SwiftUI
 import AlertToast
 
 struct SongSearchView: View {
+    @Environment(\.presentationMode) var presentation
+    
     @ObservedObject var viewModel: SpotifySearchViewModel
     @State var isEditing = false
-    @Binding var present: Bool
     
-    init(sessionId: String, present: Binding<Bool>) {
+    init(sessionId: String) {
         viewModel = SpotifySearchViewModel(sessionId: sessionId)
-        self._present = present
     }
     
     var body: some View {
@@ -54,14 +54,14 @@ struct SongSearchView: View {
             .toast(isPresenting: $viewModel.success, duration: 0.5, tapToDismiss: false, alert: {
                 AlertToast(type: .complete(.white), title: "Added To Queue", subTitle: nil)
             }, completion: {_ in
-                self.present = false
+                presentation.wrappedValue.dismiss()
             })
             .toast(isPresenting:  $viewModel.failure, duration: 0.5, tapToDismiss: false, alert: {
-                AlertToast(type: .systemImage("warning", .white), title: "Failed To Add To Queue", subTitle: nil)
+                AlertToast(type: .systemImage("exclamationmark.triangle", .white), title: "Failed To Add To Queue", subTitle: nil)
             }, completion: {_ in})
             .navigationTitle("Search")
             .navigationBarItems(trailing: Button {
-                self.present = false
+                presentation.wrappedValue.dismiss()
             } label: {
                 Text("Done")
             })

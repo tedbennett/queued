@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct CreateSessionView: View {
-    
+    @EnvironmentObject var manager: SessionManager
     var user = UserManager.shared.user
     @State private var name = ""
-    @State private var sessionCreated = false
-    @ObservedObject var hostViewModel = SessionHostViewModel()
     
     var body: some View {
         VStack {
@@ -30,15 +28,10 @@ struct CreateSessionView: View {
                     }
                     Section {
                         Button {
-                            hostViewModel.createSession(name: name)
+                            manager.createSession(name: name)
                         } label: {
-                            NavigationLink(
-                                destination: SessionHostView(viewModel: hostViewModel).navigationBarBackButtonHidden(true),
-                                isActive: $hostViewModel.sessionCreated,
-                                label: {
-                                    Text("Create Session")
-                                }).disabled(user?.host == false || name == "")
-                        }
+                            Text("Create Session")
+                        }.disabled(user?.host == false || name == "")
                     }
                 }
             }.navigationTitle("Create Session")

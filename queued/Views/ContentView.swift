@@ -9,8 +9,10 @@ import SwiftUI
 import BackgroundTasks
 
 struct ContentView: View {
+    @StateObject var manager = SessionManager.shared
     var body: some View {
         HomeView()
+            .environmentObject(manager)
     }
 }
 

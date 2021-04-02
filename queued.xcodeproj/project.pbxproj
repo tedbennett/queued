@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		9F08FCFE26160510006E287E /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 9F08FCFD26160510006E287E /* Starscream */; };
-		9F237A272600207200D5CA86 /* JoinSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F237A262600207200D5CA86 /* JoinSessionView.swift */; };
-		9F237A2A260020EE00D5CA86 /* JoinSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F237A29260020EE00D5CA86 /* JoinSessionViewModel.swift */; };
 		9F56A9CA26109F62000E7C71 /* SessionHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9C926109F62000E7C71 /* SessionHostView.swift */; };
-		9F56A9CD2610A288000E7C71 /* SessionHostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */; };
 		9F56A9D02610B172000E7C71 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F56A9CF2610B172000E7C71 /* UserManager.swift */; };
 		9F7503CB26167A1900636386 /* SongCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7503CA26167A1900636386 /* SongCellView.swift */; };
 		9F7503E126174B1B00636386 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7503E026174B1A00636386 /* Environment.swift */; };
 		9F7503E426174DDE00636386 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7503E326174DDE00636386 /* ProfileViewModel.swift */; };
 		9F7503E726175BF800636386 /* SessionHostSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7503E626175BF800636386 /* SessionHostSettingsView.swift */; };
+		9F7503EB2617992F00636386 /* SessionMemberDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7503EA2617992F00636386 /* SessionMemberDetailsView.swift */; };
+		9F7503EE2617BC5B00636386 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7503ED2617BC5A00636386 /* SessionManager.swift */; };
+		9F7503F12617C84700636386 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7503F02617C84700636386 /* HomeViewModel.swift */; };
 		9F7DF2F8260F945C005BCF83 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2F7260F945C005BCF83 /* NetworkManager.swift */; };
 		9F7DF2FC260F9893005BCF83 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2FB260F9893005BCF83 /* Session.swift */; };
 		9F7DF2FF26108A25005BCF83 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF2FE26108A25005BCF83 /* Song.swift */; };
@@ -24,7 +24,6 @@
 		9F7DF30526108B2B005BCF83 /* CreateSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */; };
 		9FA1060A260A8D8B00D2C9A3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA10609260A8D8B00D2C9A3 /* HomeView.swift */; };
 		9FA8A4A12611286D009B222C /* SessionMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8A4A02611286D009B222C /* SessionMemberView.swift */; };
-		9FA8A4A4261128DF009B222C /* SessionMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8A4A3261128DF009B222C /* SessionMemberViewModel.swift */; };
 		9FD356C725FE345D00C66E41 /* queuedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356C625FE345D00C66E41 /* queuedApp.swift */; };
 		9FD356C925FE345D00C66E41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD356C825FE345D00C66E41 /* ContentView.swift */; };
 		9FD356CB25FE346200C66E41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD356CA25FE346200C66E41 /* Assets.xcassets */; };
@@ -41,15 +40,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9F237A262600207200D5CA86 /* JoinSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionView.swift; sourceTree = "<group>"; };
-		9F237A29260020EE00D5CA86 /* JoinSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionViewModel.swift; sourceTree = "<group>"; };
 		9F56A9C926109F62000E7C71 /* SessionHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHostView.swift; sourceTree = "<group>"; };
-		9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHostViewModel.swift; sourceTree = "<group>"; };
 		9F56A9CF2610B172000E7C71 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		9F7503CA26167A1900636386 /* SongCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCellView.swift; sourceTree = "<group>"; };
 		9F7503E026174B1A00636386 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		9F7503E326174DDE00636386 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		9F7503E626175BF800636386 /* SessionHostSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHostSettingsView.swift; sourceTree = "<group>"; };
+		9F7503EA2617992F00636386 /* SessionMemberDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMemberDetailsView.swift; sourceTree = "<group>"; };
+		9F7503ED2617BC5A00636386 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		9F7503F02617C84700636386 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		9F7DF2F7260F945C005BCF83 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9F7DF2FB260F9893005BCF83 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		9F7DF2FE26108A25005BCF83 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -57,7 +56,6 @@
 		9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionView.swift; sourceTree = "<group>"; };
 		9FA10609260A8D8B00D2C9A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9FA8A4A02611286D009B222C /* SessionMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMemberView.swift; sourceTree = "<group>"; };
-		9FA8A4A3261128DF009B222C /* SessionMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMemberViewModel.swift; sourceTree = "<group>"; };
 		9FD356C325FE345D00C66E41 /* queued.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = queued.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD356C625FE345D00C66E41 /* queuedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = queuedApp.swift; sourceTree = "<group>"; };
 		9FD356C825FE345D00C66E41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -113,19 +111,11 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		9F237A252600206500D5CA86 /* NearbySessions */ = {
-			isa = PBXGroup;
-			children = (
-				9F237A29260020EE00D5CA86 /* JoinSessionViewModel.swift */,
-				9F237A262600207200D5CA86 /* JoinSessionView.swift */,
-			);
-			path = NearbySessions;
-			sourceTree = "<group>";
-		};
 		9F7DF2F5260F944F005BCF83 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				9F7DF2F7260F945C005BCF83 /* NetworkManager.swift */,
+				9F7503ED2617BC5A00636386 /* SessionManager.swift */,
 				9F56A9CF2610B172000E7C71 /* UserManager.swift */,
 			);
 			path = Managers;
@@ -157,7 +147,6 @@
 			children = (
 				9F7DF30426108B2B005BCF83 /* CreateSessionView.swift */,
 				9F56A9C926109F62000E7C71 /* SessionHostView.swift */,
-				9F56A9CC2610A288000E7C71 /* SessionHostViewModel.swift */,
 				9F7503E626175BF800636386 /* SessionHostSettingsView.swift */,
 			);
 			path = SessionHost;
@@ -167,7 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				9FA8A4A02611286D009B222C /* SessionMemberView.swift */,
-				9FA8A4A3261128DF009B222C /* SessionMemberViewModel.swift */,
+				9F7503EA2617992F00636386 /* SessionMemberDetailsView.swift */,
 			);
 			path = SessionMember;
 			sourceTree = "<group>";
@@ -176,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				9FA10609260A8D8B00D2C9A3 /* HomeView.swift */,
+				9F7503F02617C84700636386 /* HomeViewModel.swift */,
 				9FEE69322610E46B0007BB16 /* ProfileView.swift */,
 				9F7503E326174DDE00636386 /* ProfileViewModel.swift */,
 			);
@@ -205,7 +195,6 @@
 				9F7503E026174B1A00636386 /* Environment.swift */,
 				9F7DF2F5260F944F005BCF83 /* Managers */,
 				9F7DF30A2610975A005BCF83 /* Views */,
-				9F237A252600206500D5CA86 /* NearbySessions */,
 				9F237A1C26001D2900D5CA86 /* Search */,
 				9F237A2126001D6300D5CA86 /* Components */,
 				9F237A1F26001D5B00D5CA86 /* Extensions */,
@@ -310,19 +299,18 @@
 			files = (
 				9F7DF30226108A7C005BCF83 /* User.swift in Sources */,
 				9F7DF2FF26108A25005BCF83 /* Song.swift in Sources */,
-				9FA8A4A4261128DF009B222C /* SessionMemberViewModel.swift in Sources */,
 				9FA1060A260A8D8B00D2C9A3 /* HomeView.swift in Sources */,
 				9F7503E726175BF800636386 /* SessionHostSettingsView.swift in Sources */,
 				9F7DF30526108B2B005BCF83 /* CreateSessionView.swift in Sources */,
+				9F7503EB2617992F00636386 /* SessionMemberDetailsView.swift in Sources */,
 				9F7503CB26167A1900636386 /* SongCellView.swift in Sources */,
 				9F7503E426174DDE00636386 /* ProfileViewModel.swift in Sources */,
-				9F56A9CD2610A288000E7C71 /* SessionHostViewModel.swift in Sources */,
+				9F7503F12617C84700636386 /* HomeViewModel.swift in Sources */,
 				9FA8A4A12611286D009B222C /* SessionMemberView.swift in Sources */,
-				9F237A272600207200D5CA86 /* JoinSessionView.swift in Sources */,
+				9F7503EE2617BC5B00636386 /* SessionManager.swift in Sources */,
 				9F7DF2F8260F945C005BCF83 /* NetworkManager.swift in Sources */,
 				9F56A9D02610B172000E7C71 /* UserManager.swift in Sources */,
 				9FD356ED25FE412B00C66E41 /* ImageView.swift in Sources */,
-				9F237A2A260020EE00D5CA86 /* JoinSessionViewModel.swift in Sources */,
 				9F7503E126174B1B00636386 /* Environment.swift in Sources */,
 				9FD356C925FE345D00C66E41 /* ContentView.swift in Sources */,
 				9FD356E425FE3EDE00C66E41 /* SongSearchView.swift in Sources */,

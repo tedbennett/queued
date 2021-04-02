@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var manager: SessionManager
+    @StateObject var viewModel = HomeViewModel()
+    
     @State private var text = ""
     @State private var presentProfile = false
-    
-    @StateObject var viewModel = SessionMemberViewModel()
     
     var body: some View {
         NavigationView {
@@ -26,12 +27,12 @@ struct HomeView: View {
                     .padding()
                 
                 NavigationLink(
-                    destination: SessionMemberView(viewModel: viewModel)
+                    destination: SessionMemberView()
                         .navigationBarBackButtonHidden(true),
-                    isActive: $viewModel.joined,
+                    isActive: $manager.isSessionMember,
                     label: {
                         Button {
-                            viewModel.joinSession(with: text)
+                            viewModel.findAndJoinSession(key: text)
                         } label: {
                             Text("Join").font(.title2)
                                 .foregroundColor(.white)
@@ -40,7 +41,7 @@ struct HomeView: View {
                                 .background(Color.blue)
                                 .cornerRadius(15)
                             
-                        }
+                        }.disabled(text == "")
                     }).disabled(text == "")
                 Spacer()
                 HStack {
@@ -53,8 +54,7 @@ struct HomeView: View {
                     }
                 }
                 
-                NavigationLink(destination: CreateSessionView(),
-                               label: {
+                NavigationLink(destination: CreateSessionView(), label: {
                                 HStack {
                                     Spacer()
                                     Text("Host a Session").foregroundColor(.white).fontWeight(.medium)
@@ -65,6 +65,11 @@ struct HomeView: View {
                                 .cornerRadius(15)
                                 .padding()
                                })
+                
+                NavigationLink(destination: SessionHostView().navigationBarBackButtonHidden(true),
+                               isActive: $manager.isSessionHost,
+                               label: { EmptyView() })
+                
                 
             }.navigationTitle("Join A Session")
             .navigationBarItems(trailing: Button {

@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct SessionHostView: View {
-    @ObservedObject var viewModel: SessionHostViewModel
+    @EnvironmentObject var manager: SessionManager
+    @Environment(\.presentationMode) var presentation
     @State private var showSettings = false
     
     var body: some View {
-        if let session = viewModel.session {
+        if let session = manager.session {
             VStack {
-                Text(session.key).font(Font.system(size: 30, weight: .semibold, design: .rounded))
                 HStack {
+                    Text(session.key).font(Font.system(size: 30, weight: .semibold, design: .rounded))
+                
                     Button {
                         UIPasteboard.general.string = session.key
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -29,7 +31,7 @@ struct SessionHostView: View {
                     }
                 }
                 List {
-                    ForEach(viewModel.users) { user in
+                    ForEach(manager.users) { user in
                         HStack {
                             ImageView(urlString: user.imageUrl ?? "").frame(width:80, height: 80)
                                 .background(Color(UIColor.systemGray2))
@@ -46,7 +48,7 @@ struct SessionHostView: View {
                 Image(systemName: "gear").font(.title)
             })
             .sheet(isPresented: $showSettings) {
-                SessionHostSettingsView(viewModel: viewModel)
+                SessionHostSettingsView()
             }
         }
     }

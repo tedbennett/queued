@@ -13,15 +13,17 @@ class UserManager: ObservableObject {
     static var shared = UserManager()
     private init() { }
     
-    // Not caching user for now
     @Published var user: User?
     
     func checkUser() {
-        KeychainWrapper.standard.remove(forKey: "user-id")
         if KeychainWrapper.standard.string(forKey: "user-id") == nil {
             createUser()
         } else {
-            getUser { _ in }
+            getUser { user in
+                if let session = user?.session {
+                    SessionManager.shared.getSession(id: session)
+                }
+            }
         }
     }
     
