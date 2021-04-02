@@ -19,7 +19,6 @@ struct ImageView: View {
             Image(uiImage: viewModel.image!)
                 .resizable()
                 .scaledToFit()
-                .background(Color(UIColor.systemGray2))
         } else {
             Image(systemName: "camera")
                 .scaledToFit()

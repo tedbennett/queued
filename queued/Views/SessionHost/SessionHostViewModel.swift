@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Combine
+import SwiftUI
 
 class SessionHostViewModel: ObservableObject {
     @Published var session: Session?
@@ -43,6 +43,16 @@ class SessionHostViewModel: ObservableObject {
         }
         group.notify(queue: .main) { [weak self] in
             self?.users = users
+        }
+    }
+    
+    func deleteSession() {
+        guard let id = session?.id else { return }
+        NetworkManager.shared.stopListeningToSession()
+        NetworkManager.shared.deleteSession(id: id) { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.sessionCreated = false
+            }
         }
     }
     

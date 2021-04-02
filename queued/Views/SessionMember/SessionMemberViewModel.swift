@@ -37,10 +37,11 @@ class SessionMemberViewModel: ObservableObject {
     }
     
     func leaveSession() {
-        guard let id = session?.id else {
-            return
-        }
-        NetworkManager.shared.leaveSession(id: id) { success in
+        guard let id = session?.id else { return }
+        NetworkManager.shared.leaveSession(id: id) { [weak self] success in
+            DispatchQueue.main.async {
+                self?.joined = !success
+            }
             if success {
                 NetworkManager.shared.stopListeningToSession()
             }

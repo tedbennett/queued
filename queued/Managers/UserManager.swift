@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Dispatch
 import SwiftKeychainWrapper
 
 class UserManager: ObservableObject {
@@ -13,10 +14,14 @@ class UserManager: ObservableObject {
     private init() { }
     
     // Not caching user for now
+    @Published var user: User?
     
     func checkUser() {
+        KeychainWrapper.standard.remove(forKey: "user-id")
         if KeychainWrapper.standard.string(forKey: "user-id") == nil {
             createUser()
+        } else {
+            getUser { _ in }
         }
     }
     
@@ -24,6 +29,7 @@ class UserManager: ObservableObject {
         NetworkManager.shared.createUser() { id in
             guard let id = id else { return }
             KeychainWrapper.standard.set(id, forKey: "user-id")
+            self.getUser() { _ in }
         }
     }
     
@@ -33,10 +39,33 @@ class UserManager: ObservableObject {
     
     func getUser(completion: @escaping (User?) -> Void) {
         guard let id = getId() else { return }
-        NetworkManager.shared.getUser(id: id) {completion($0)}
+        NetworkManager.shared.getUser(id: id) { user in
+            DispatchQueue.main.async {
+                self.user = user
+            }
+            completion(user)
+        }
     }
     
     func updateUser(name: String, imageUrl: String?, completion: @escaping (Bool) -> Void) {
-        NetworkManager.shared.updateUser(name: name, imageUrl: imageUrl) {completion($0)}
+        NetworkManager.shared.updateUser(name: name, imageUrl: imageUrl) {
+            completion($0)
+        }
+    }
+    
+    func authoriseWithSpotify(code: String) {
+        NetworkManager.shared.authoriseWithSpotify(code: code) { success in
+            DispatchQueue.main.async {
+                self.user?.host = success
+            }
+        }
+    }
+    
+    func logoutFromSpotify() {
+        NetworkManager.shared.logoutFromSpotify() { success in
+            DispatchQueue.main.async {
+                self.user?.host = !success
+            }
+        }
     }
 }

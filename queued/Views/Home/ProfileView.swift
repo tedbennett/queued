@@ -10,12 +10,13 @@ import SwiftUI
 struct ProfileView: View {
     @Binding var present: Bool
     @State private var name = ""
-    @State private var imageUrl: String?
-    @State private var host = false
     
-    @ObservedObject private var auth = SpotifyManager.shared
+    @ObservedObject private var userModel = UserManager.shared
+    @ObservedObject private var viewModel = ProfileViewModel()
+    
     var body: some View {
         NavigationView {
+            if let user = userModel.user {
             Form {
                 List {
                     HStack {
@@ -30,7 +31,7 @@ struct ProfileView: View {
                         TextField("Enter Name", text: $name)
                     }
                     Section(header: Text("Music Service")) {
-                        if auth.loggedIn || host {
+                        if user.host == true {
                             
                             HStack {
                                 Image("spotify_icon").resizable().frame(width: 50, height: 50)
@@ -40,13 +41,13 @@ struct ProfileView: View {
                                 Image(systemName: "checkmark").foregroundColor(.gray)
                             }
                             Button(action: {
-                                //auth.logout()
+                                viewModel.logoutFromSpotify()
                             }, label: {
                                 Text("Logout").foregroundColor(.red)
                             })
                         } else {
                             Button {
-                                auth.login()
+                                viewModel.loginToSpotify()
                             } label: {
                                 HStack {
                                     Image("spotify_icon").resizable().frame(width: 50, height: 50)
@@ -64,19 +65,18 @@ struct ProfileView: View {
             } label: {
                 Image(systemName: "xmark")
             }, trailing: Button {
-                UserManager.shared.updateUser(name: name, imageUrl: imageUrl) { _ in }
+                UserManager.shared.updateUser(name: name, imageUrl: user.imageUrl) { _ in }
                 present = false
             } label: {
                 Text("Save")
             })
+            }
         }.onAppear {
             UserManager.shared.getUser() { user in
                 guard let user = user else {
                     return
                 }
                 name = user.name ?? ""
-                imageUrl = user.imageUrl ?? nil
-                host = user.host ?? false
             }
         }
     }

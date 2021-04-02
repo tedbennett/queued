@@ -16,5 +16,5 @@ struct Session: Codable {
     var queue: [Song]
     var createdAt: Date
     
-    static let example = Session(id: "", name: "New Session", key: "ABCDEF", host: "host-id", members: [], queue: [], createdAt: Date())
+    static let example = Session(id: "", name: "New Session", key: "ABCDEF", host: "host-id", members: ["James", "Donny"], queue: [], createdAt: Date())
 }

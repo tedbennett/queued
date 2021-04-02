@@ -18,27 +18,30 @@ struct HomeView: View {
             VStack {
                 Spacer()
                 TextField("Enter code", text: $text)
-                    .font(Font.system(size: 25, weight: .semibold, design: .rounded))
+                    .onChange(of: text) {
+                        text = $0.uppercased()
+                    }.font(Font.system(size: 25, weight: .semibold, design: .rounded))
                     .multilineTextAlignment(.center)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
-                    NavigationLink(
-                        destination: SessionMemberView(viewModel: viewModel),
-                        isActive: $viewModel.joined,
-                        label: {
-                            Button {
-                                viewModel.joinSession(with: text)
-                            } label: {
+                NavigationLink(
+                    destination: SessionMemberView(viewModel: viewModel)
+                        .navigationBarBackButtonHidden(true),
+                    isActive: $viewModel.joined,
+                    label: {
+                        Button {
+                            viewModel.joinSession(with: text)
+                        } label: {
                             Text("Join").font(.title2)
                                 .foregroundColor(.white)
                                 .padding()
                                 .padding(.horizontal, 30)
                                 .background(Color.blue)
-                                .cornerRadius(10)
-                                
-                            }
-                        }).disabled(text == "")
+                                .cornerRadius(15)
+                            
+                        }
+                    }).disabled(text == "")
                 Spacer()
                 HStack {
                     VStack {
@@ -50,26 +53,24 @@ struct HomeView: View {
                     }
                 }
                 
-                NavigationLink(
-                    destination: CreateSessionView(),
-                    label: {
-                        HStack {
-                            Spacer()
-                            Text("Host a Session").foregroundColor(.white).fontWeight(.medium)
-                            Spacer()
-                            Image(systemName: "chevron.right").foregroundColor(.white)
-                        }
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(15)
-                        .padding()
-                    })
+                NavigationLink(destination: CreateSessionView(),
+                               label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Host a Session").foregroundColor(.white).fontWeight(.medium)
+                                    Spacer()
+                                    Image(systemName: "chevron.right").foregroundColor(.white)
+                                }.padding()
+                                .background(Color.blue)
+                                .cornerRadius(15)
+                                .padding()
+                               })
                 
             }.navigationTitle("Join A Session")
             .navigationBarItems(trailing: Button {
                 presentProfile.toggle()
             } label: {
-                Image(systemName: "person.circle").font(.title2)
+                Image(systemName: "person.circle").font(.title)
             })
             .sheet(isPresented: $presentProfile, content: {
                 ProfileView(present: $presentProfile)

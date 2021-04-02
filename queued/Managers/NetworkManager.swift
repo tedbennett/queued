@@ -41,14 +41,20 @@ class NetworkManager {
         }.resume()
     }
     
-    private func requestWithoutBody(url: URLRequest, completion: @escaping (Bool) -> Void) {
+    private func requestWithoutResponse(url: URLRequest, completion: @escaping (Bool) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard error == nil else {
                 print(error.debugDescription)
                 completion(false)
                 return
             }
-            completion(true)
+            if let response = response as? HTTPURLResponse {
+                completion(response.statusCode == 200)
+            } else {
+                completion(false)
+            }
+            
+            
         }.resume()
     }
     
@@ -107,7 +113,7 @@ class NetworkManager {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "DELETE"
         
-        requestWithoutBody(url: urlRequest) { completion($0) }
+        requestWithoutResponse(url: urlRequest) { completion($0) }
     }
     
     func addSongToQueue(_ song: Song, sessionId: String, completion: @escaping (Bool) -> Void) {
@@ -132,7 +138,7 @@ class NetworkManager {
         if let data = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed) {
             urlRequest.httpBody = data
         }
-        requestWithoutBody(url: urlRequest) { completion($0) }
+        requestWithoutResponse(url: urlRequest) { completion($0) }
     }
     
     func listenToSession(id: String, connectionChanged: @escaping (Bool) -> Void, sessionChanged: @escaping (Session?) -> Void) {
@@ -183,7 +189,7 @@ class NetworkManager {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "DELETE"
         
-        requestWithoutBody(url: urlRequest) { completion($0) }
+        requestWithoutResponse(url: urlRequest) { completion($0) }
     }
     
     // MARK: User
@@ -220,7 +226,7 @@ class NetworkManager {
             urlRequest.httpBody = data
         }
         
-        requestWithoutBody(url: urlRequest) { completion($0) }
+        requestWithoutResponse(url: urlRequest) { completion($0) }
     }
     
     // MARK: Spotify Management
@@ -240,6 +246,20 @@ class NetworkManager {
             urlRequest.httpBody = data
         }
         
-        requestWithoutBody(url: urlRequest) { completion($0) }
+        requestWithoutResponse(url: urlRequest) { completion($0) }
+    }
+    
+    func logoutFromSpotify(completion: @escaping (Bool) -> Void) {
+        guard let userId = UserManager.shared.getId() else {
+            completion(false)
+            return
+        }
+        
+        let url = URL(string: "\(baseUrl)/users/\(userId)/logoutFromSpotify")!
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        
+        requestWithoutResponse(url: urlRequest) { completion($0) }
     }
 }

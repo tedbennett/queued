@@ -24,7 +24,11 @@ struct SessionMemberView: View {
                     SongCellView(song: song)
                 }
             }.navigationTitle(session.name)
-        
+            .navigationBarItems(leading: Button {
+                viewModel.leaveSession()
+            } label: {
+                Text("Leave").foregroundColor(.red)
+            })
             .sheet(isPresented: $present, content: { SongSearchView(sessionId: session.id, present: $present) })
         }
     }
