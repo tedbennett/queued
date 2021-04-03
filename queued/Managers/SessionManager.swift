@@ -33,6 +33,9 @@ class SessionManager: ObservableObject {
     
     func getSession(id: String) {
         NetworkManager.shared.getSession(id: id) { session in
+            if let ids = session?.members {
+                self.getUsers(ids: ids)
+            }
             DispatchQueue.main.async {
                 self.session = session
             }
@@ -62,9 +65,21 @@ class SessionManager: ObservableObject {
                 self.session = session
             }
             NetworkManager.shared.listenToSession(id: session!.id, connectionChanged: { _ in}) { session in
+                if let ids = session?.members, ids != self.session?.members {
+                    self.getUsers(ids: ids)
+                }
                 DispatchQueue.main.async {
                     self.session = session
                 }
+            }
+        }
+    }
+    
+    func updateSession(name: String) {
+        guard let id = session?.id else { return }
+        NetworkManager.shared.updateSession(id: id, name: name) { session in
+            DispatchQueue.main.async {
+                self.session = session
             }
         }
     }
@@ -75,7 +90,10 @@ class SessionManager: ObservableObject {
                 self.session = session
             }
             guard let session = session else { return }
-            NetworkManager.shared.listenToSession(id: session.id, connectionChanged: { _ in}) { newSession in
+            NetworkManager.shared.listenToSession(id: session.id, connectionChanged: { _ in }) { newSession in
+                if let ids = newSession?.members, ids != self.session?.members {
+                    self.getUsers(ids: ids)
+                }
                 DispatchQueue.main.async {
                     self.session = newSession
                 }
@@ -89,6 +107,7 @@ class SessionManager: ObservableObject {
             if success {
                 DispatchQueue.main.async {
                     self.session = nil
+                    self.users = []
                 }
             }
         }
@@ -100,6 +119,7 @@ class SessionManager: ObservableObject {
             if success {
                 DispatchQueue.main.async {
                     self.session = nil
+                    self.users = []
                 }
             }
         }

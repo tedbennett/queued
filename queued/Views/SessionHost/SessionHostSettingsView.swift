@@ -13,6 +13,7 @@ struct SessionHostSettingsView: View {
     
     @State private var name = ""
     @State private var showAlert = false
+    @State private var expandUsers = false
     
     var body: some View {
         NavigationView {
@@ -20,6 +21,24 @@ struct SessionHostSettingsView: View {
                 List {
                     Section(header: Text("Session Name")) {
                         TextField("Session Name", text: $name)
+                    }
+                    Section(header: Text("Members")) {
+                        if !expandUsers {
+                            ForEach(manager.users.prefix(5)) { user in
+                                Text(user.name ?? "Session Member")
+                            }
+                            if manager.users.count > 5 {
+                                Button {
+                                    expandUsers.toggle()
+                                } label: {
+                                    Text("Show \(manager.users.count - 1) more")
+                                }
+                            }
+                        } else {
+                            ForEach(manager.users) { user in
+                                Text(user.name ?? "Session Member")
+                            }
+                        }
                     }
                     Button {
                         showAlert = true
@@ -30,9 +49,12 @@ struct SessionHostSettingsView: View {
             }
             .navigationTitle("Settings")
             .navigationBarItems(trailing: Button {
+                if name != manager.session?.name {
+                    manager.updateSession(name: name)
+                }
                 presentation.wrappedValue.dismiss()
             } label: {
-                Image(systemName: "xmark").font(.title)
+                Text("Done")
             })
         }.alert(isPresented: $showAlert) {
             Alert(title: Text("Delete Session?"),

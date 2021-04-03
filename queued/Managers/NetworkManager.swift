@@ -87,7 +87,22 @@ class NetworkManager {
     func getSession(key: String, completion:  @escaping (Session?) -> Void) {
         let url = URL(string: "\(baseUrl)/sessions/key/\(key)")!
         request(url: URLRequest(url: url)) { completion($0) }
+    }
+    
+    func updateSession(id: String, name: String, completion: @escaping (Session?) -> Void) {
+        var body = [String: String]()
         
+        body["name"] = name
+        
+        let url = URL(string: "\(baseUrl)/sessions/\(id)")!
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        if let data = try? JSONSerialization.data(withJSONObject: body) {
+            urlRequest.httpBody = data
+        }
+        
+        request(url: urlRequest) { completion($0) }
     }
     
     func joinSession(id: String, completion:  @escaping (Session?) -> Void) {
