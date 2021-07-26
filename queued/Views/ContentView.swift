@@ -10,9 +10,11 @@ import BackgroundTasks
 
 struct ContentView: View {
     @StateObject var manager = SessionManager.shared
+    @StateObject var userManager = UserManager.shared
     var body: some View {
         HomeView()
             .environmentObject(manager)
+            .environmentObject(userManager)
     }
 }
 

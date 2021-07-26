@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct SessionMemberDetailsView: View {
-    @EnvironmentObject var manager: SessionManager
-    
+    @State private var users = [User]()
     var body: some View {
         NavigationView {
             List {
-                ForEach(manager.users) { user in
+                ForEach(users) { user in
                     HStack {
                         ImageView(urlString: user.imageUrl ?? "").frame(width:80, height: 80)
                             .background(Color(UIColor.systemGray2))
@@ -22,6 +21,8 @@ struct SessionMemberDetailsView: View {
                     }.padding(5)
                 }
             }.navigationTitle("Session Members")
+        }.onAppear {
+            users = SessionManager.shared.users
         }
     }
 }

@@ -13,4 +13,5 @@ struct User: Codable, Identifiable {
     var imageUrl: String?
     var host: Bool?
     var session: String?
+    
 }

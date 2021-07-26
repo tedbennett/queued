@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct HomeView: View {
     @EnvironmentObject var manager: SessionManager
-    @StateObject var viewModel = HomeViewModel()
+    @EnvironmentObject var userManager: UserManager
     
     @State private var text = ""
     @State private var presentProfile = false
+    @State private var isHost = false
     
     var body: some View {
         NavigationView {
@@ -20,7 +22,8 @@ struct HomeView: View {
                 Spacer()
                 TextField("Enter code", text: $text)
                     .onChange(of: text) {
-                        text = $0.uppercased()
+                        text = String($0.uppercased().prefix(6))
+                        manager.failedToFindSession = false
                     }.font(Font.system(size: 25, weight: .semibold, design: .rounded))
                     .multilineTextAlignment(.center)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -32,17 +35,23 @@ struct HomeView: View {
                     isActive: $manager.isSessionMember,
                     label: {
                         Button {
-                            viewModel.findAndJoinSession(key: text)
+                            manager.findAndJoinSession(key: text)
                         } label: {
                             Text("Join").font(.title2)
                                 .foregroundColor(.white)
                                 .padding()
                                 .padding(.horizontal, 30)
-                                .background(Color.blue)
+                                .background(text.count == 6 ? Color.blue : Color.gray)
                                 .cornerRadius(15)
                             
-                        }.disabled(text == "")
-                    }).disabled(text == "")
+                        }.disabled(text.count != 6)
+                    }).disabled(text.count != 6)
+                
+                if manager.failedToFindSession {
+                    Text("Couldn't find a session with this key")
+                        .font(.callout)
+                        .foregroundColor(.red)
+                }
                 Spacer()
                 HStack {
                     VStack {
@@ -55,16 +64,29 @@ struct HomeView: View {
                 }
                 
                 NavigationLink(destination: CreateSessionView(), label: {
-                                HStack {
-                                    Spacer()
-                                    Text("Host a Session").foregroundColor(.white).fontWeight(.medium)
-                                    Spacer()
-                                    Image(systemName: "chevron.right").foregroundColor(.white)
-                                }.padding()
-                                .background(Color.blue)
-                                .cornerRadius(15)
-                                .padding()
-                               })
+                    ZStack {
+                        HStack {
+                            Spacer()
+                            Text("Host a Session").font(.title2).foregroundColor(.white)
+                            Spacer()
+                            
+                        }
+                        HStack {
+                            Spacer()
+                            Image(systemName: "chevron.right").foregroundColor(.white)
+                        }
+                    }.padding()
+                    .background((userManager.user?.host ?? false) ? Color.blue : Color.gray)
+                    .cornerRadius(15)
+                    .padding()
+                }).disabled(!(userManager.user?.host ?? true))
+                if !(userManager.user?.host ?? false) {
+                    Text("Sign in to Spotify in your Profile to host a session")
+                        .font(.callout)
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 40)
+                        .multilineTextAlignment(.center)
+                }
                 
                 NavigationLink(destination: SessionHostView().navigationBarBackButtonHidden(true),
                                isActive: $manager.isSessionHost,
@@ -80,6 +102,18 @@ struct HomeView: View {
             .sheet(isPresented: $presentProfile, content: {
                 ProfileView(present: $presentProfile)
             })
+            .toast(isPresenting: $manager.sessionEnded){
+                AlertToast(displayMode: .hud, type: .regular, title: "Session Ended")
+            }.onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                if manager.session != nil {
+                    manager.getSession(id: manager.session!.id)
+                    manager.listenToSession()
+                }
+            }
+            .onAppear {
+                isHost = UserManager.shared.user?.host ?? false
+                print("Appearing \(isHost)")
+            }
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct SessionMemberView: View {
     @EnvironmentObject var manager: SessionManager
@@ -14,6 +15,7 @@ struct SessionMemberView: View {
     
     var body: some View {
         if let session = manager.session {
+            let currentlyPlaying = session.currentlyPlaying ?? 0
             List {
                 Button {
                     activeSheet = .search
@@ -23,28 +25,50 @@ struct SessionMemberView: View {
                         Text("Add Song to Queue").font(.title2).padding()
                     }
                 }
-                ForEach(session.queue) { song in
-                    SongCellView(song: song)
+                ForEach(session.queue.suffix(session.queue.count - currentlyPlaying)) { song in
+                    ZStack {
+                        SongCellView(song: song)
+                    }
                 }
             }.navigationTitle(session.name)
             .navigationBarItems(leading: Button {
                 manager.leaveSession()
             } label: {
                 Text("Leave").foregroundColor(.red)
-            }, trailing: Button {
-                activeSheet = .members
-            } label: {
-                Image(systemName: "person.2.circle").font(.title)
-            })
+            }, trailing: HStack {
+                Button {
+                    shareSession()
+                } label: {
+                    Image(systemName: "square.and.arrow.up").font(.title)
+                }
+                Button {
+                    activeSheet = .members
+                } label: {
+                    Image(systemName: "person.2.circle").font(.title)
+                }
+                })
             .sheet(item: $activeSheet) { item in
                 switch item {
                     case .members:
                         SessionMemberDetailsView()
                     case .search:
-                        SongSearchView(sessionId: session.id)
+                        SongSearchView()
                 }
             }
+            .toast(isPresenting: $manager.addedSongToSession, duration: 1.0) {
+                AlertToast(type: .complete(.black), title: "Added to Queue!")
+            }
+            .alert(isPresented: $manager.failedToAddSong) {
+                Alert(title: Text("Failed to add to queue"), message: Text("No active Spotify session was found on the host's account"), dismissButton: .destructive(Text("OK")))
+            }
         }
+    }
+    
+    func shareSession() {
+        guard let key = SessionManager.shared.session?.key,
+              let url = URL(string: "https://www.kude.app/session/\(key)") else { return }
+        let av = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
     }
     
     enum ActiveSheet: Identifiable {

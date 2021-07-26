@@ -21,7 +21,7 @@ class UserManager: ObservableObject {
         } else {
             getUser { user in
                 if let session = user?.session {
-                    SessionManager.shared.getSession(id: session)
+                    SessionManager.shared.getSession(id: session, startListening: true)
                 }
             }
         }
@@ -50,7 +50,13 @@ class UserManager: ObservableObject {
     }
     
     func updateUser(name: String, imageUrl: String?, completion: @escaping (Bool) -> Void) {
-        NetworkManager.shared.updateUser(name: name, imageUrl: imageUrl) {
+        NetworkManager.shared.updateUser(name: name, imageUrl: imageUrl) { [weak self] in
+            if $0 {
+                DispatchQueue.main.async {
+                    self?.user?.name = name
+                    self?.user?.imageUrl = imageUrl
+                }
+            }
             completion($0)
         }
     }

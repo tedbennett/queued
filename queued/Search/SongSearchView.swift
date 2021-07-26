@@ -6,43 +6,29 @@
 //
 
 import SwiftUI
-import AlertToast
 
 struct SongSearchView: View {
     @Environment(\.presentationMode) var presentation
     
-    @ObservedObject var viewModel: SpotifySearchViewModel
+    @ObservedObject var viewModel = SpotifySearchViewModel()
     @State var isEditing = false
-    
-    init(sessionId: String) {
-        viewModel = SpotifySearchViewModel(sessionId: sessionId)
-    }
     
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    TextField("Search for tracks", text: $viewModel.searchText)
-                        .padding(7)
-                        //.padding(.horizontal, 25)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                        .padding(.horizontal, 10)
-                    if viewModel.searchText != "" {
-                        Button() {
-                            viewModel.getSongsFromSearch()
-                            hideKeyboard()
-                        } label: {
-                            Text("Search")
-                        }.padding(.trailing, 10)
-                        .transition(.move(edge: .trailing))
-                        .animation(.default)
-                    }
-                }.padding()
+                TextField("Search for tracks", text: $viewModel.searchText)
+                    .padding(7)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                    .padding(.horizontal, 10)
                 List {
                     ForEach(viewModel.songs) { song in
                         Button() {
-                            viewModel.addSongToQueue(song)
+                            SessionManager.shared.addSongToSession(song: song)
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                self.presentation.wrappedValue.dismiss()
+                            }
                         } label: {
                             HStack {
                                 SongCellView(song: song)
@@ -51,14 +37,6 @@ struct SongSearchView: View {
                     }
                 }.listStyle(PlainListStyle())
             }
-            .toast(isPresenting: $viewModel.success, duration: 0.5, tapToDismiss: false, alert: {
-                AlertToast(type: .complete(.white), title: "Added To Queue", subTitle: nil)
-            }, completion: {_ in
-                presentation.wrappedValue.dismiss()
-            })
-            .toast(isPresenting:  $viewModel.failure, duration: 0.5, tapToDismiss: false, alert: {
-                AlertToast(type: .systemImage("exclamationmark.triangle", .white), title: "Failed To Add To Queue", subTitle: nil)
-            }, completion: {_ in})
             .navigationTitle("Search")
             .navigationBarItems(trailing: Button {
                 presentation.wrappedValue.dismiss()

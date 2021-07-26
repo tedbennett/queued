@@ -11,9 +11,17 @@ struct SessionHostSettingsView: View {
     @EnvironmentObject var manager: SessionManager
     @Environment(\.presentationMode) var presentation
     
-    @State private var name = ""
+    @State private var name = SessionManager.shared.session?.name ?? ""
     @State private var showAlert = false
     @State private var expandUsers = false
+    
+    var key: String  {
+        SessionManager.shared.session?.key ?? ""
+    }
+    
+    var users: [User]  {
+        SessionManager.shared.users
+    }
     
     var body: some View {
         NavigationView {
@@ -22,20 +30,37 @@ struct SessionHostSettingsView: View {
                     Section(header: Text("Session Name")) {
                         TextField("Session Name", text: $name)
                     }
+                    Section(header: Text("Session Key"), footer: Text("Send this to others to invite them to your session")) {
+                        HStack {
+                            Text(key)
+                            Spacer()
+                            Button {
+                                UIPasteboard.general.string = key
+                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            } label: {
+                                Image(systemName: "square.on.square").font(.title3)
+                            }
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "square.and.arrow.up").font(.title3)
+                            }
+                        }
+                    }
                     Section(header: Text("Members")) {
                         if !expandUsers {
-                            ForEach(manager.users.prefix(5)) { user in
+                            ForEach(users.prefix(5)) { user in
                                 Text(user.name ?? "Session Member")
                             }
-                            if manager.users.count > 5 {
+                            if users.count > 5 {
                                 Button {
                                     expandUsers.toggle()
                                 } label: {
-                                    Text("Show \(manager.users.count - 1) more")
+                                    Text("Show \(users.count - 5) more")
                                 }
                             }
                         } else {
-                            ForEach(manager.users) { user in
+                            ForEach(users) { user in
                                 Text(user.name ?? "Session Member")
                             }
                         }
@@ -60,17 +85,18 @@ struct SessionHostSettingsView: View {
             Alert(title: Text("Delete Session?"),
                   primaryButton: .destructive(Text("OK")) {
                     presentation.wrappedValue.dismiss()
-                    manager.deleteSession()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        manager.deleteSession()
+                    }
                   },
                   secondaryButton: .cancel())
-        }.onAppear {
-            name = manager.session?.name ?? ""
         }
     }
 }
 
-//struct SessionHostSettingsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SessionHostSettingsView()
-//    }
-//}
+struct SessionHostSettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SessionHostSettingsView()
+            .environmentObject(SessionManager.exampleHost)
+    }
+}
