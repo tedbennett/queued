@@ -18,7 +18,7 @@ class SpotifySearchViewModel: ObservableObject {
     }
     func getSongsFromSearch() {
         let encodedSearch = searchText.replacingOccurrences(of: " ", with: "+")
-        NetworkManager.shared.searchSpotify(for: encodedSearch) { songs in
+        FirebaseManager.shared.searchSpotify(for: encodedSearch) { songs in
             if let songs = songs {
                 DispatchQueue.main.async {
                     self.songs = songs

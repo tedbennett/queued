@@ -35,7 +35,7 @@ struct HomeView: View {
                     isActive: $manager.isSessionMember,
                     label: {
                         Button {
-                            manager.findAndJoinSession(key: text)
+//                            manager.findAndJoinSession(key: text)
                         } label: {
                             Text("Join").font(.title2)
                                 .foregroundColor(.white)

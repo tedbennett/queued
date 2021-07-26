@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import Starscream
 
 class NetworkManager {
     static var shared = NetworkManager()
     
     private let baseUrl = "https://api.kude.app"
     private let wsUrl = "wss://ws.kude.app"
-    private var socket: WebSocket?
+    //private var socket: WebSocket?
     var isConnected = false
     
     private init() { }
@@ -176,49 +175,49 @@ class NetworkManager {
     }
     
     func listenToSession(id: String, connectionChanged: @escaping (Bool) -> Void, sessionChanged: @escaping (Session?) -> Void) {
-        var request = URLRequest(url: URL(string: wsUrl)!)
-        request.timeoutInterval = 5
-        socket = WebSocket(request: request)
-        socket?.connect()
-        socket?.onEvent = { event in
-            switch event {
-                case .connected(let headers):
-                    connectionChanged(true)
-                    let response = ["session_id": id, "type": "join"]
-                    
-                    if let data = try? JSONSerialization.data(withJSONObject: response),
-                       let string  = String.init(data: data, encoding: String.Encoding.utf8) {
-                        self.socket?.write(string: string)
-                    }
-                    print("websocket is connected: \(headers)")
-                case .disconnected(let reason, let code):
-                    connectionChanged(false)
-                    print("websocket is disconnected: \(reason) with code: \(code)")
-                case .text(let string):
-                    print("Received text: \(string)")
-                    guard let data = string.data(using: .utf8) else { sessionChanged(nil)
-                        return
-                    }
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        sessionChanged(session)
-                    } else if string == "session closed" {
-                        sessionChanged(nil)
-                    }
-                case .cancelled:
-                    connectionChanged(false)
-                case .error(let error):
-                    print("Websocket error: \(error.debugDescription)")
-                    connectionChanged(false)
-                default:
-                    break
-            }
-        }
+//        var request = URLRequest(url: URL(string: wsUrl)!)
+//        request.timeoutInterval = 5
+//        socket = WebSocket(request: request)
+//        socket?.connect()
+//        socket?.onEvent = { event in
+//            switch event {
+//                case .connected(let headers):
+//                    connectionChanged(true)
+//                    let response = ["session_id": id, "type": "join"]
+//
+//                    if let data = try? JSONSerialization.data(withJSONObject: response),
+//                       let string  = String.init(data: data, encoding: String.Encoding.utf8) {
+//                        self.socket?.write(string: string)
+//                    }
+//                    print("websocket is connected: \(headers)")
+//                case .disconnected(let reason, let code):
+//                    connectionChanged(false)
+//                    print("websocket is disconnected: \(reason) with code: \(code)")
+//                case .text(let string):
+//                    print("Received text: \(string)")
+//                    guard let data = string.data(using: .utf8) else { sessionChanged(nil)
+//                        return
+//                    }
+//                    let decoder = JSONDecoder()
+//                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+//                    if let session = try? decoder.decode(Session.self, from: data) {
+//                        sessionChanged(session)
+//                    } else if string == "session closed" {
+//                        sessionChanged(nil)
+//                    }
+//                case .cancelled:
+//                    connectionChanged(false)
+//                case .error(let error):
+//                    print("Websocket error: \(error.debugDescription)")
+//                    connectionChanged(false)
+//                default:
+//                    break
+//            }
+//        }
     }
     
     func stopListeningToSession() {
-        socket?.disconnect()
+        //socket?.disconnect()
     }
     
     func deleteSession(id: String, completion: @escaping (Bool) -> Void) {

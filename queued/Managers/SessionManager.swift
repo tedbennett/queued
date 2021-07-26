@@ -38,7 +38,7 @@ class SessionManager: ObservableObject {
     @Published var users: [User] = []
     
     func getSession(id: String, startListening: Bool = false) {
-        NetworkManager.shared.getSession(id: id) { session in
+        FirebaseManager.shared.getSession(id: id) { session in
             if let session = session {
                 DispatchQueue.main.async {
                     self.session = session
@@ -54,7 +54,7 @@ class SessionManager: ObservableObject {
         var users: [User] = []
         ids.forEach {
             group.enter()
-            NetworkManager.shared.getUser(id: $0) { user in
+            FirebaseManager.shared.getUser(id: $0) { user in
                 if let user = user {
                     users.append(user)
                 }
@@ -67,7 +67,7 @@ class SessionManager: ObservableObject {
     }
     
     func createSession(name: String) {
-        NetworkManager.shared.createSession(name: name) { session in
+        FirebaseManager.shared.createSession(name: name) { session in
             DispatchQueue.main.async {
                 self.session = session
             }
@@ -80,12 +80,12 @@ class SessionManager: ObservableObject {
     
     func updateSession(name: String) {
         guard let id = session?.id else { return }
-        NetworkManager.shared.updateSession(id: id, name: name) { _ in }
+        FirebaseManager.shared.updateSessionName(id: id, name: name) { _ in }
     }
     
     func addSongToSession(song: Song) {
         guard let id = session?.id else { return }
-        NetworkManager.shared.addSongToQueue(song, sessionId: id) { success in
+        FirebaseManager.shared.addSongToQueue(song, sessionId: id) { success in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 if success {
                     self.addedSongToSession = true
@@ -98,7 +98,7 @@ class SessionManager: ObservableObject {
     }
     
     func joinSession(id: String) {
-        NetworkManager.shared.joinSession(id: id) { session in
+        FirebaseManager.shared.joinSession(id: id) { session in
             DispatchQueue.main.async {
                 self.session = session
                 if session != nil {
@@ -108,26 +108,26 @@ class SessionManager: ObservableObject {
         }
     }
     
-    func findAndJoinSession(key: String) {
-        NetworkManager.shared.getSession(key: key) { session in
-            if let id = session?.id {
-                self.joinSession(id: id)
-            } else {
-                DispatchQueue.main.async {
-                    self.failedToFindSession = true
-                }
-            }
-        }
-    }
+//    func findAndJoinSession(key: String) {
+//        FirebaseManager.shared.getSession(key: key) { session in
+//            if let id = session?.id {
+//                self.joinSession(id: id)
+//            } else {
+//                DispatchQueue.main.async {
+//                    self.failedToFindSession = true
+//                }
+//            }
+//        }
+//    }
     
     func checkCurrentlyPlaying() {
         guard let id = session?.id else { return }
-        NetworkManager.shared.checkCurrentlyPlaying(id: id)
+        FirebaseManager.shared.checkCurrentlyPlaying(id: id)
     }
     
     func leaveSession() {
         guard let id = session?.id else { return }
-        NetworkManager.shared.leaveSession(id: id) { success in
+        FirebaseManager.shared.leaveSession(id: id) { success in
             if success {
                 DispatchQueue.main.async {
                     self.session = nil
@@ -139,7 +139,7 @@ class SessionManager: ObservableObject {
     
     func deleteSession() {
         guard let id = session?.id else { return }
-        NetworkManager.shared.deleteSession(id: id) { success in
+        FirebaseManager.shared.deleteSession(id: id) { success in
             if success {
                 DispatchQueue.main.async {
                     self.session = nil
@@ -152,13 +152,13 @@ class SessionManager: ObservableObject {
     func listenToSession() {
         guard let session = session else { return }
         checkCurrentlyPlaying()
-        NetworkManager.shared.listenToSession(id: session.id, connectionChanged: { _ in }) { newSession in
+        FirebaseManager.shared.listenToSession(id: session.id) { newSession in
             guard let newSession = newSession else {
                 DispatchQueue.main.async {
                     self.session = nil
                     self.sessionEnded = true
                 }
-                NetworkManager.shared.stopListeningToSession()
+                FirebaseManager.shared.stopListeningToSession()
                 return
             }
             if newSession.members != self.session?.members {

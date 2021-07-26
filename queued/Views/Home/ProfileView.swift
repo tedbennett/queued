@@ -117,7 +117,7 @@ struct ProfileView: View {
     
     func uploadImage() {
         guard let data = inputImage?.jpegData(compressionQuality: 0.3) else { return }
-        NetworkManager.shared.uploadImage(data: data, completion: { url in
+        FirebaseManager.shared.uploadImage(data: data, completion: { url in
             if let url = url {
                 imageUrl = url
             }

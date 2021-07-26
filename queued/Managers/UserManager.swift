@@ -16,6 +16,7 @@ class UserManager: ObservableObject {
     @Published var user: User?
     
     func checkUser() {
+        KeychainWrapper.standard.remove(forKey: "user-id")
         if KeychainWrapper.standard.string(forKey: "user-id") == nil {
             createUser()
         } else {
@@ -28,7 +29,7 @@ class UserManager: ObservableObject {
     }
     
     func createUser() {
-        NetworkManager.shared.createUser() { id in
+        FirebaseManager.shared.createUser() { id in
             guard let id = id else { return }
             KeychainWrapper.standard.set(id, forKey: "user-id")
             self.getUser() { _ in }
@@ -41,7 +42,7 @@ class UserManager: ObservableObject {
     
     func getUser(completion: @escaping (User?) -> Void) {
         guard let id = getId() else { return }
-        NetworkManager.shared.getUser(id: id) { user in
+        FirebaseManager.shared.getUser(id: id) { user in
             DispatchQueue.main.async {
                 self.user = user
             }
@@ -50,7 +51,7 @@ class UserManager: ObservableObject {
     }
     
     func updateUser(name: String, imageUrl: String?, completion: @escaping (Bool) -> Void) {
-        NetworkManager.shared.updateUser(name: name, imageUrl: imageUrl) { [weak self] in
+        FirebaseManager.shared.updateUser(name: name) { [weak self] in
             if $0 {
                 DispatchQueue.main.async {
                     self?.user?.name = name
@@ -62,7 +63,7 @@ class UserManager: ObservableObject {
     }
     
     func authoriseWithSpotify(code: String) {
-        NetworkManager.shared.authoriseWithSpotify(code: code) { success in
+        FirebaseManager.shared.authoriseWithSpotify(code: code) { success in
             DispatchQueue.main.async {
                 self.user?.host = success
             }
@@ -70,7 +71,7 @@ class UserManager: ObservableObject {
     }
     
     func logoutFromSpotify() {
-        NetworkManager.shared.logoutFromSpotify() { success in
+        FirebaseManager.shared.logoutFromSpotify() { success in
             DispatchQueue.main.async {
                 self.user?.host = !success
             }
