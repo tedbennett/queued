@@ -7,24 +7,22 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseFunctions
 
 class FirebaseManager {
     static var shared = FirebaseManager()
     
-    private init() {
-        
-    }
+    private init() { }
     
     private var db = Firestore.firestore()
     private var listener: ListenerRegistration?
+    lazy private var functions = Functions.functions()
     
     // MARK: Sessions
     func createSession(name: String, completion: @escaping (Session?) -> Void) {
-        guard let userId = UserManager.shared.getId() else {
-            completion(nil)
-            return
-        }
+        let userId = UserManager.shared.user.id
         let id = UUID().uuidString
         db.collection("sessions").document(id).setData([
             "id": id,
@@ -32,8 +30,8 @@ class FirebaseManager {
             "host": userId,
             "members": [userId],
             "queue": [],
-            "createdAt": Date(),
-            "updatedAt": Date()
+            "createdAt": Date().timeIntervalSince1970,
+            "updatedAt": Date().timeIntervalSince1970
         ]) { error in
             guard error == nil else {
                 completion(nil)
@@ -47,7 +45,9 @@ class FirebaseManager {
     
     func decode<T: Decodable>(json: [String:Any]) -> T? {
         guard let data = try? JSONSerialization.data(withJSONObject: json) else { return nil }
-        return try? JSONDecoder().decode(T.self, from: data)
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+        return try? decoder.decode(T.self, from: data)
     }
     
     func getSession(id: String, completion:  @escaping (Session?) -> Void) {
@@ -74,9 +74,7 @@ class FirebaseManager {
     
     
     func joinSession(id: String, completion:  @escaping (Session?) -> Void) {
-        guard let userId = UserManager.shared.getId() else {
-            return
-        }
+        let userId = UserManager.shared.user.id
         db.collection("sessions").document(id).updateData([
             "users": FieldValue.arrayUnion([userId]),
             "updatedAt": FieldValue.serverTimestamp()
@@ -94,9 +92,7 @@ class FirebaseManager {
     }
     
     func leaveSession(id: String, completion: @escaping (Bool) -> Void) {
-        guard let userId = UserManager.shared.getId() else {
-            return
-        }
+        let userId = UserManager.shared.user.id
         db.collection("sessions").document(id).updateData([
             "users": FieldValue.arrayUnion([id]),
             "updatedAt": FieldValue.serverTimestamp()
@@ -107,19 +103,17 @@ class FirebaseManager {
     }
     
     func addSongToQueue(_ song: Song, sessionId: String, completion: @escaping (Bool) -> Void) {
-        getSession(id: sessionId) { session in
-            guard let session = session else {
+        functions.httpsCallable("addSongToQueue").call(["song": song, "sessionId": sessionId]) { result, error in
+            guard error == nil else {
+                print(error.debugDescription)
                 completion(false)
                 return
             }
-            
-            var songs = session.queue
-            songs.append(song)
-            
-            self.db.collection("sessions").document(sessionId).updateData([
-                "queue": songs,
-                "updatedAt": FieldValue.serverTimestamp()
-            ])
+            if let data = result?.data as? [String: Any], let result = data["result"] as? Bool {
+                completion(result)
+            } else {
+                completion(false)
+            }
         }
     }
     
@@ -150,16 +144,11 @@ class FirebaseManager {
     }
     
     // MARK: User
-    func createUser(completion: @escaping (String?) -> Void) {
-        let id = UUID().uuidString
+    func createUser(id: String, completion: @escaping (Bool) -> Void) {
         db.collection("users").document(id).setData([
             "id":id
         ]) { error in
-            guard error == nil else {
-                completion(nil)
-                return
-            }
-            completion(id)
+            completion(error == nil )
         }
     }
     
@@ -174,11 +163,8 @@ class FirebaseManager {
     }
     
     func updateUser(name: String, completion: @escaping (Bool) -> Void) {
-        guard let id = UserManager.shared.getId() else {
-            completion(false)
-            return
-        }
-        db.collection("users").document(id).updateData([
+        let userId = UserManager.shared.user.id
+        db.collection("users").document(userId).updateData([
             "name": name
         ]) { error in
             if let error = error {
@@ -191,13 +177,42 @@ class FirebaseManager {
     // MARK: Spotify Management
     
     func authoriseWithSpotify(code: String, completion: @escaping (Bool) -> Void) {
+        let userId = UserManager.shared.user.id
+        functions.httpsCallable("authoriseSpotify").call(["code": code, "userId": userId]) { result, error in
+            guard error == nil else {
+                print(error.debugDescription)
+                completion(false)
+                return
+            }
+            if let data = result?.data, let result = data as? Bool {
+                completion(result)
+            } else {
+                completion(false)
+            }
+        }
     }
     
     func logoutFromSpotify(completion: @escaping (Bool) -> Void) {
-        
+        let userId = UserManager.shared.user.id
+        db.collection("users").document(userId).updateData([
+            "accessToken": NSNull(),
+            "refreshToken": NSNull(),
+            "expiresAt": NSNull()
+        ])
+        completion(true)
     }
     
     func searchSpotify(for query: String, completion: @escaping ([Song]?) -> Void) {
+        functions.httpsCallable("searchSpotify").call(["query": query]) { result, error in
+            guard error == nil else {
+                print(error.debugDescription)
+                completion(nil)
+                return
+            }
+            if let data = result?.data as? [String: Any], let result = data["result"] as? [String: Any] {
+                completion(self.decode(json: result))
+            }
+        }
     }
     
     // MARK: Images

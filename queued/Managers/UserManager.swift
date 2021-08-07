@@ -4,68 +4,62 @@
 //
 //  Created by Ted Bennett on 28/03/2021.
 //
-
+import SwiftUI
 import Combine
 import Dispatch
 import SwiftKeychainWrapper
 
 class UserManager: ObservableObject {
     static var shared = UserManager()
-    private init() { }
-    
-    @Published var user: User?
-    
-    func checkUser() {
-        KeychainWrapper.standard.remove(forKey: "user-id")
-        if KeychainWrapper.standard.string(forKey: "user-id") == nil {
-            createUser()
+    private init() {
+        if let savedUser = UserDefaults.standard.object(forKey: "user") as? Data,
+           let loadedUser = try? JSONDecoder().decode(User.self, from: savedUser) {
+            self.user = loadedUser
         } else {
-            getUser { user in
-                if let session = user?.session {
-                    SessionManager.shared.getSession(id: session, startListening: true)
-                }
-            }
+            let id = UUID().uuidString
+            self.user = User(id: id)
+            self.user.name = ""
+            FirebaseManager.shared.createUser(id: id) { _ in }
+            self.saveUser()
         }
     }
     
-    func createUser() {
-        FirebaseManager.shared.createUser() { id in
-            guard let id = id else { return }
-            KeychainWrapper.standard.set(id, forKey: "user-id")
-            self.getUser() { _ in }
+    @Published var user: User
+    
+    func checkSession(completion: @escaping (Bool) -> Void) {
+        if let session = user.session {
+            SessionManager.shared.getSession(id: session, startListening: true) {
+                completion($0)
+            }
+        } else {
+            completion(false)
         }
     }
     
-    func getId() -> String? {
-        return KeychainWrapper.standard.string(forKey: "user-id")
-    }
-    
-    func getUser(completion: @escaping (User?) -> Void) {
-        guard let id = getId() else { return }
-        FirebaseManager.shared.getUser(id: id) { user in
-            DispatchQueue.main.async {
-                self.user = user
-            }
-            completion(user)
+    func saveUser() {
+        if let encoded = try? JSONEncoder().encode(user) {
+            UserDefaults.standard.set(encoded, forKey: "user")
         }
     }
     
     func updateUser(name: String, imageUrl: String?, completion: @escaping (Bool) -> Void) {
-        FirebaseManager.shared.updateUser(name: name) { [weak self] in
-            if $0 {
+        FirebaseManager.shared.updateUser(name: name) { success in
+            if success {
                 DispatchQueue.main.async {
-                    self?.user?.name = name
-                    self?.user?.imageUrl = imageUrl
+                    self.user.name = name
+                    self.user.imageUrl = imageUrl
+                    self.saveUser()
                 }
             }
-            completion($0)
+            completion(success)
         }
     }
     
     func authoriseWithSpotify(code: String) {
         FirebaseManager.shared.authoriseWithSpotify(code: code) { success in
             DispatchQueue.main.async {
-                self.user?.host = success
+                self.user.host = success
+                self.saveUser()
             }
         }
     }
@@ -73,7 +67,8 @@ class UserManager: ObservableObject {
     func logoutFromSpotify() {
         FirebaseManager.shared.logoutFromSpotify() { success in
             DispatchQueue.main.async {
-                self.user?.host = !success
+                self.user.host = !success
+                self.saveUser()
             }
         }
     }

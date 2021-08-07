@@ -27,7 +27,7 @@ class SessionManager: ObservableObject {
                 isSessionMember = false
                 isSessionHost = false
             } else {
-                if session?.host == UserManager.shared.getId() {
+                if session?.host == UserManager.shared.user.id {
                     isSessionHost = true
                 } else {
                     isSessionMember = true
@@ -37,15 +37,18 @@ class SessionManager: ObservableObject {
     }
     @Published var users: [User] = []
     
-    func getSession(id: String, startListening: Bool = false) {
+    func getSession(id: String, startListening: Bool = false, completion: @escaping (Bool) -> Void) {
         FirebaseManager.shared.getSession(id: id) { session in
             if let session = session {
                 DispatchQueue.main.async {
                     self.session = session
                 }
                 self.getUsers(ids: session.members)
-                self.listenToSession()
+                if startListening {
+                    self.listenToSession()
+                }
             }
+            completion(session != nil)
         }
     }
     
@@ -70,11 +73,11 @@ class SessionManager: ObservableObject {
         FirebaseManager.shared.createSession(name: name) { session in
             DispatchQueue.main.async {
                 self.session = session
+                self.listenToSession()
             }
             if let ids = session?.members {
                 self.getUsers(ids: ids)
             }
-            self.listenToSession()
         }
     }
     

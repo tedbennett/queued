@@ -11,7 +11,6 @@ struct User: Codable, Identifiable {
     var id: String
     var name: String?
     var imageUrl: String?
-    var host: Bool?
+    var host: Bool = false
     var session: String?
-    
 }
