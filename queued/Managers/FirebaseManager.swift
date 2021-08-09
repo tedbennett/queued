@@ -63,7 +63,7 @@ class FirebaseManager {
     func updateSessionName(id: String, name: String, completion: @escaping (Bool) -> Void) {
         db.collection("sessions").document(id).updateData([
             "name": name,
-            "updatedAt": FieldValue.serverTimestamp()
+            "updatedAt": Date().timeIntervalSince1970
         ]) { error in
             if let error = error {
                 print(error.localizedDescription)
@@ -77,7 +77,7 @@ class FirebaseManager {
         let userId = UserManager.shared.user.id
         db.collection("sessions").document(id).updateData([
             "users": FieldValue.arrayUnion([userId]),
-            "updatedAt": FieldValue.serverTimestamp()
+            "updatedAt": Date().timeIntervalSince1970
         ]) { error in
             guard error == nil else {
                 print(error.debugDescription)
@@ -95,7 +95,7 @@ class FirebaseManager {
         let userId = UserManager.shared.user.id
         db.collection("sessions").document(id).updateData([
             "users": FieldValue.arrayUnion([id]),
-            "updatedAt": FieldValue.serverTimestamp()
+            "updatedAt": Date().timeIntervalSince1970
         ])
         db.collection("users").document(userId).updateData([
             "session": NSNull()
@@ -103,14 +103,21 @@ class FirebaseManager {
     }
     
     func addSongToQueue(_ song: Song, sessionId: String, completion: @escaping (Bool) -> Void) {
-        functions.httpsCallable("addSongToQueue").call(["song": song, "sessionId": sessionId]) { result, error in
+        let songDict = [
+            "id": song.id,
+            "name": song.name,
+            "artist": song.artist,
+            "album": song.album,
+            "imageUrl": song.imageUrl
+        ]
+        functions.httpsCallable("addSongToQueue").call(["song": songDict, "sessionId": sessionId]) { result, error in
             guard error == nil else {
                 print(error.debugDescription)
                 completion(false)
                 return
             }
-            if let data = result?.data as? [String: Any], let result = data["result"] as? Bool {
-                completion(result)
+            if let success = result?.data as? Bool {
+                completion(success)
             } else {
                 completion(false)
             }
@@ -209,8 +216,8 @@ class FirebaseManager {
                 completion(nil)
                 return
             }
-            if let data = result?.data as? [String: Any], let result = data["result"] as? [String: Any] {
-                completion(self.decode(json: result))
+            if let data = result?.data as? [[String: Any]] {
+                completion(data.compactMap { self.decode(json: $0) })
             }
         }
     }
