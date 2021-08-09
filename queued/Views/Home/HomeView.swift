@@ -9,6 +9,7 @@ import SwiftUI
 import BetterSafariView
 
 struct HomeView: View {
+    @EnvironmentObject var manager: SessionManager
     @ObservedObject var viewModel = HomeViewModel()
     
     @State private var showLoginPrompt = false
@@ -179,14 +180,16 @@ struct HomeView: View {
                         .padding()
                 }
                 
+                NavigationLink(
+                    destination: SessionView()
+                        .environmentObject(manager),
+                    isActive: $manager.inSession,
+                    label: {
+                        EmptyView()
+                    })
             }.navigationTitle("Kude")
             
             
-            //            NavigationLink(
-            //                destination: SessionView(isHost: false),
-            //                label: {
-            //                    EmptyView()
-            //                })
         }
         .webAuthenticationSession(isPresented: $viewModel.startingWebAuthSession) {
             viewModel.webAuthSession
