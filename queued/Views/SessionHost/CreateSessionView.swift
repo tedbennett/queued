@@ -31,7 +31,7 @@ struct CreateSessionView: View {
                             manager.createSession(name: name)
                         } label: {
                             Text("Create Session")
-                        }.disabled(user?.host == false || name == "")
+                        }.disabled(user.host == false || name == "")
                     }
                 }
             }.navigationTitle("Create Session")

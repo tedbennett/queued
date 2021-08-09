@@ -10,14 +10,17 @@ import Foundation
 struct Session: Codable {
     var id: String
     var name: String
-    var key: String
     var host: String
     var members: [String]
     var queue: [Song]
     var createdAt: Date
     
     var currentlyPlaying: Int?
-    var minimumDelay: Int?
+    var frequency: Int? // Number of queues per 10 minutes
     
-    static let example = Session(id: "", name: "New Session", key: "ABCDEF", host: "host-id", members: ["James", "Donny"], queue: [], createdAt: Date())
+    var url: URL {
+        return URL(string: "https://www.kude.app/session/\(id)")!
+    }
+    
+    static let example = Session(id: "", name: "New Session", host: "host-id", members: ["James", "Donny"], queue: [], createdAt: Date())
 }

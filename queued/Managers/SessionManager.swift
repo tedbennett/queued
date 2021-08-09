@@ -12,8 +12,7 @@ class SessionManager: ObservableObject {
     static let shared = SessionManager()
     private init() { }
     
-    @Published var isSessionMember = false
-    @Published var isSessionHost = false
+    @Published var inSession = false
     
     @Published var sessionEnded = false
     @Published var failedToFindSession = false
@@ -23,16 +22,7 @@ class SessionManager: ObservableObject {
     
     @Published var session: Session? {
         didSet {
-            if session == nil {
-                isSessionMember = false
-                isSessionHost = false
-            } else {
-                if session?.host == UserManager.shared.user.id {
-                    isSessionHost = true
-                } else {
-                    isSessionMember = true
-                }
-            }
+            inSession = session != nil
         }
     }
     @Published var users: [User] = []
@@ -42,11 +32,12 @@ class SessionManager: ObservableObject {
             if let session = session {
                 DispatchQueue.main.async {
                     self.session = session
+                    if startListening {
+                        self.listenToSession()
+                    }
                 }
                 self.getUsers(ids: session.members)
-                if startListening {
-                    self.listenToSession()
-                }
+                
             }
             completion(session != nil)
         }
@@ -74,6 +65,9 @@ class SessionManager: ObservableObject {
             DispatchQueue.main.async {
                 self.session = session
                 self.listenToSession()
+                if let id = session?.id {
+                    UserManager.shared.addUserToSession(id: id)
+                }
             }
             if let ids = session?.members {
                 self.getUsers(ids: ids)
@@ -107,6 +101,7 @@ class SessionManager: ObservableObject {
                 if session != nil {
                     self.listenToSession()
                 }
+                UserManager.shared.addUserToSession(id: id)
             }
         }
     }
@@ -130,6 +125,7 @@ class SessionManager: ObservableObject {
     
     func leaveSession() {
         guard let id = session?.id else { return }
+        UserManager.shared.removeUserFromSession()
         FirebaseManager.shared.leaveSession(id: id) { success in
             if success {
                 DispatchQueue.main.async {
@@ -142,6 +138,7 @@ class SessionManager: ObservableObject {
     
     func deleteSession() {
         guard let id = session?.id else { return }
+        UserManager.shared.removeUserFromSession()
         FirebaseManager.shared.deleteSession(id: id) { success in
             if success {
                 DispatchQueue.main.async {

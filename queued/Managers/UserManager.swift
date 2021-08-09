@@ -18,7 +18,6 @@ class UserManager: ObservableObject {
         } else {
             let id = UUID().uuidString
             self.user = User(id: id)
-            self.user.name = ""
             FirebaseManager.shared.createUser(id: id) { _ in }
             self.saveUser()
         }
@@ -42,17 +41,26 @@ class UserManager: ObservableObject {
         }
     }
     
-    func updateUser(name: String, imageUrl: String?, completion: @escaping (Bool) -> Void) {
+    func updateUser(name: String, completion: @escaping (Bool) -> Void) {
         FirebaseManager.shared.updateUser(name: name) { success in
             if success {
                 DispatchQueue.main.async {
                     self.user.name = name
-                    self.user.imageUrl = imageUrl
                     self.saveUser()
                 }
             }
             completion(success)
         }
+    }
+    
+    func addUserToSession(id: String, host: Bool = false) {
+        user.session = id
+        saveUser()
+    }
+    
+    func removeUserFromSession() {
+        user.session = nil
+        saveUser()
     }
     
     func authoriseWithSpotify(code: String) {

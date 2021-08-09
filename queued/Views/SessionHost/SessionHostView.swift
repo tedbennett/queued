@@ -63,8 +63,8 @@ struct SessionHostView: View {
     }
     
     func shareSession() {
-        guard let key = SessionManager.shared.session?.key,
-              let url = URL(string: "https://www.kude.app/session/\(key)") else { return }
+        guard let id = SessionManager.shared.session?.id,
+              let url = URL(string: "https://www.kude.app/session/\(id)") else { return }
         let av = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
     }

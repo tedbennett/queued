@@ -15,9 +15,9 @@ struct SessionHostSettingsView: View {
     @State private var showAlert = false
     @State private var expandUsers = false
     
-    var key: String  {
-        SessionManager.shared.session?.key ?? ""
-    }
+//    var key: String  {
+//        SessionManager.shared.session?.key ?? ""
+//    }
     
     var users: [User]  {
         SessionManager.shared.users
@@ -30,23 +30,23 @@ struct SessionHostSettingsView: View {
                     Section(header: Text("Session Name")) {
                         TextField("Session Name", text: $name)
                     }
-                    Section(header: Text("Session Key"), footer: Text("Send this to others to invite them to your session")) {
-                        HStack {
-                            Text(key)
-                            Spacer()
-                            Button {
-                                UIPasteboard.general.string = key
-                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                            } label: {
-                                Image(systemName: "square.on.square").font(.title3)
-                            }
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "square.and.arrow.up").font(.title3)
-                            }
-                        }
-                    }
+//                    Section(header: Text("Session Key"), footer: Text("Send this to others to invite them to your session")) {
+//                        HStack {
+//                            Text(key)
+//                            Spacer()
+//                            Button {
+//                                UIPasteboard.general.string = key
+//                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+//                            } label: {
+//                                Image(systemName: "square.on.square").font(.title3)
+//                            }
+//                            Button {
+//                                
+//                            } label: {
+//                                Image(systemName: "square.and.arrow.up").font(.title3)
+//                            }
+//                        }
+//                    }
                     Section(header: Text("Members")) {
                         if !expandUsers {
                             ForEach(users.prefix(5)) { user in
