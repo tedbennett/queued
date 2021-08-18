@@ -102,6 +102,7 @@ class SessionManager: ObservableObject {
                     self.listenToSession()
                 }
                 UserManager.shared.addUserToSession(id: id)
+                self.checkCurrentlyPlaying()
             }
         }
     }

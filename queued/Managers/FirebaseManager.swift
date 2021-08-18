@@ -94,7 +94,7 @@ class FirebaseManager {
     func leaveSession(id: String, completion: @escaping (Bool) -> Void) {
         let userId = UserManager.shared.user.id
         db.collection("sessions").document(id).updateData([
-            "users": FieldValue.arrayUnion([id]),
+            "users": FieldValue.arrayRemove([id]),
             "updatedAt": Date().timeIntervalSince1970
         ])
         db.collection("users").document(userId).updateData([
@@ -125,7 +125,7 @@ class FirebaseManager {
     }
     
     func checkCurrentlyPlaying(id: String) {
-        
+        functions.httpsCallable("checkCurrentlyPlaying").call([:]) { _, _ in }
     }
     
     func listenToSession(id: String, completion: @escaping (Session?) -> Void) {
@@ -147,6 +147,17 @@ class FirebaseManager {
     }
     
     func deleteSession(id: String, completion: @escaping (Bool) -> Void) {
+        getSession(id: id) { session in
+            guard let members = session?.members else {
+                completion(true)
+                return
+            }
+            members.forEach { userId in
+                self.db.collection("users").document(userId).updateData([
+                    "session": NSNull()
+                ])
+            }
+        }
         db.collection("sessions").document(id).delete()
     }
     
