@@ -37,8 +37,13 @@ struct SessionView: View {
                         presentSearch.toggle()
                     } label: {
                         HStack {
-                            Image(systemName: "plus").font(.largeTitle).frame(width:80, height: 80)
-                            Text("Add Song to Queue").font(.title2).fontWeight(.heavy).padding()
+                            Image(systemName: "plus")
+                                .font(.largeTitle)
+                                .frame(width:80, height: 80)
+                            Text("Add Song to Queue")
+                                .font(.title2)
+                                .fontWeight(.heavy)
+                                .padding()
                         }
                     }.buttonStyle(PlainButtonStyle())
                 }
