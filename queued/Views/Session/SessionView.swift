@@ -84,11 +84,8 @@ struct SessionView: View {
                 SongSearchView()
             })
             .sheet(isPresented: $presentSettings, content: {
-                if isHost {
-                    SessionSettingsView()
-                } else {
-                    SessionSettingsView()
-                }
+                SessionSettingsView(presented: $presentSettings)
+                    .environmentObject(manager)
             })
             
             .toast(isPresenting: $manager.addedSongToSession, duration: 1.0) {

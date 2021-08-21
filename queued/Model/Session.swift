@@ -16,7 +16,7 @@ struct Session: Codable {
     var createdAt: Date
     
     var currentlyPlaying: Int?
-    var frequency: Int? // Number of queues per 10 minutes
+    var delay: Int = 0 // Number of seconds between adding songs
     
     var url: URL {
         return URL(string: "https://www.kude.app/session/\(id)")!

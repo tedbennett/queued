@@ -9,14 +9,20 @@ import SwiftUI
 
 struct SessionSettingsView: View {
     @EnvironmentObject var manager: SessionManager
-    @Environment(\.presentationMode) private var presentationMode
-    @State private var sessionNameText = ""
-    @State private var userNameText = ""
+    @Binding var presented: Bool
+    //@Environment(\.presentationMode) private var presentationMode
     @State private var showDeleteAlert = false
     
-    @State private var frequencyIndex = 0
-    private var frequencies = ["No Limit", "1", "2", "3", "4", "5"]
+    @State private var delay = SessionManager.shared.session?.delay ?? 0
+    @State private var sessionNameText = SessionManager.shared.session?.name ?? ""
+    @State private var userNameText = UserManager.shared.user.name ?? ""
+    
+    private var delays = [0, 10, 20, 30, 60, 120, 180, 300, 600]
         
+    init(presented: Binding<Bool>) {
+        _presented = presented
+    }
+    
     var host: Bool {
         guard let sessionHost = manager.session?.host else {
             return false
@@ -24,10 +30,20 @@ struct SessionSettingsView: View {
         return sessionHost == UserManager.shared.user.id
     }
     
+    func delayString(_ value: Int) -> String {
+        switch value {
+            case 0: return "No Delay"
+            case 1..<60: return "\(value) seconds"
+            case 60: return "1 minute"
+            case 61...: return "\(value / 60) minutes"
+            default: return "Invalid delay"
+        }
+    }
+    
     var body: some View {
         if let session = manager.session {
             NavigationView {
-                List {
+                Form {
                     Section(header: Text("Session Name")) {
                         if host {
                             TextField("Session Name", text: $sessionNameText)
@@ -40,13 +56,15 @@ struct SessionSettingsView: View {
                         TextField("Session Name", text: $userNameText)
                     }
                     
-                    if host {
-                        Section(header: Text("Settings")) {
-                            Picker(selection: $frequencyIndex, label: Text("Queue Frequency")) {
-                                ForEach(frequencies, id: \.self) {
-                                    Text($0)
+                    Section(header: Text("Settings")) {
+                        if host {
+                            Picker(selection: $delay, label: Text("Queue Delay")) {
+                                ForEach(delays, id: \.self) {
+                                    Text(delayString($0))
                                 }
                             }
+                        } else {
+                            Text(delayString(session.delay))
                         }
                     }
                     
@@ -66,11 +84,6 @@ struct SessionSettingsView: View {
                         }
                     }
                 }
-                .listStyle(InsetGroupedListStyle())
-                .onAppear {
-                    sessionNameText = session.name
-                    userNameText = UserManager.shared.user.name ?? ""
-                }
                 .navigationTitle("Settings")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(trailing: Button {
@@ -80,14 +93,17 @@ struct SessionSettingsView: View {
                     if host && (sessionNameText != session.name) {
                         manager.updateSession(name: sessionNameText)
                     }
-                    presentationMode.wrappedValue.dismiss()
+                    if host && (delay != session.delay) {
+                        manager.updateSession(delay: delay)
+                    }
+                    presented.toggle()
                 } label: {
                     Text("Save")
                 })
                 .alert(isPresented: $showDeleteAlert) {
                     Alert(title: Text("Delete Session?"),
                           primaryButton: .destructive(Text("OK")) {
-                            presentationMode.wrappedValue.dismiss()
+                            presented.toggle()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                 
                                 manager.deleteSession()

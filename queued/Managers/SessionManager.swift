@@ -14,6 +14,8 @@ class SessionManager: ObservableObject {
     
     @Published var inSession = false
     
+    @Published var canQueue = true
+    
     @Published var sessionEnded = false
     @Published var failedToFindSession = false
     
@@ -78,6 +80,11 @@ class SessionManager: ObservableObject {
     func updateSession(name: String) {
         guard let id = session?.id else { return }
         FirebaseManager.shared.updateSessionName(id: id, name: name) { _ in }
+    }
+    
+    func updateSession(delay: Int) {
+        guard let id = session?.id else { return }
+        FirebaseManager.shared.updateSessionDelay(id: id, delay: delay) { _ in }
     }
     
     func addSongToSession(song: Song) {
@@ -171,6 +178,8 @@ class SessionManager: ObservableObject {
             }
         }
     }
+    
+    
     
     static var exampleHost: SessionManager {
         let manager = SessionManager()

@@ -30,6 +30,7 @@ class FirebaseManager {
             "host": userId,
             "members": [userId],
             "queue": [],
+            "delay": 0,
             "createdAt": Date().timeIntervalSince1970,
             "updatedAt": Date().timeIntervalSince1970
         ]) { error in
@@ -63,6 +64,18 @@ class FirebaseManager {
     func updateSessionName(id: String, name: String, completion: @escaping (Bool) -> Void) {
         db.collection("sessions").document(id).updateData([
             "name": name,
+            "updatedAt": Date().timeIntervalSince1970
+        ]) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            completion(error == nil)
+        }
+    }
+    
+    func updateSessionDelay(id: String, delay: Int, completion: @escaping (Bool) -> Void) {
+        db.collection("sessions").document(id).updateData([
+            "delay": delay,
             "updatedAt": Date().timeIntervalSince1970
         ]) { error in
             if let error = error {
