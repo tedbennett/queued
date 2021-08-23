@@ -138,7 +138,7 @@ class FirebaseManager {
     }
     
     func checkCurrentlyPlaying(id: String) {
-        functions.httpsCallable("checkCurrentlyPlaying").call([:]) { _, _ in }
+        functions.httpsCallable("checkCurrentlyPlaying").call(["sessionId": id]) { _, _ in }
     }
     
     func listenToSession(id: String, completion: @escaping (Session?) -> Void) {

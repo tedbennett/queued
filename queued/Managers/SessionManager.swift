@@ -90,7 +90,7 @@ class SessionManager: ObservableObject {
     func addSongToSession(song: Song) {
         guard let id = session?.id else { return }
         FirebaseManager.shared.addSongToQueue(song, sessionId: id) { success in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if success {
                     self.addedSongToSession = true
                     self.checkCurrentlyPlaying()

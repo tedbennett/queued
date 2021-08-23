@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SongSearchView: View {
-    @Environment(\.presentationMode) var presentation
+    @Binding var present: Bool
     
     @ObservedObject var viewModel = SpotifySearchViewModel()
     @State var isEditing = false
@@ -17,8 +17,10 @@ struct SongSearchView: View {
         NavigationView {
             VStack {
                 TextField("Search for tracks", text: $viewModel.searchText)
+                    
                     .padding(7)
-                    .background(Color(.systemGray6))
+                    .background(RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color(.systemGray5)))
                     .cornerRadius(8)
                     .padding(.horizontal, 10)
                 List {
@@ -27,7 +29,7 @@ struct SongSearchView: View {
                             SessionManager.shared.addSongToSession(song: song)
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                self.presentation.wrappedValue.dismiss()
+                                self.present.toggle()
                             }
                         } label: {
                             HStack {
@@ -39,7 +41,7 @@ struct SongSearchView: View {
             }
             .navigationTitle("Search")
             .navigationBarItems(trailing: Button {
-                presentation.wrappedValue.dismiss()
+                present.toggle()
             } label: {
                 Text("Done")
             })
@@ -47,8 +49,9 @@ struct SongSearchView: View {
     }
 }
 
-//struct SongSearchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SongSearchView(viewModel: SpotifySearchViewModel())
-//    }
-//}
+struct SongSearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        SongSearchView(present: .constant(true), viewModel: SpotifySearchViewModel())
+            .preferredColorScheme(.dark)
+    }
+}

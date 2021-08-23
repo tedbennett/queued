@@ -47,7 +47,10 @@ struct SessionView: View {
                         }
                     }.buttonStyle(PlainButtonStyle())
                 }
-                Section {
+                Section(header: HStack {
+                    Image(systemName: "square.stack.3d.up")
+                    Text("Queue")
+                }) {
                     ForEach(session.queue.suffix(session.queue.count - index)) { song in
                         SongCellView(song: song)
                     }
@@ -81,7 +84,7 @@ struct SessionView: View {
                     }
                 })
             .sheet(isPresented: $presentSearch, content: {
-                SongSearchView()
+                SongSearchView(present: $presentSearch)
             })
             .sheet(isPresented: $presentSettings, content: {
                 SessionSettingsView(presented: $presentSettings)
